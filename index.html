@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Estimulación para Adultos Mayores con Alzheimer o Demencia | Para Hijos Cuidadores</title>
+    <meta name="description" content="Protocolo de 15 minutos al día con +100 actividades adaptadas por estadio para acompañar a un padre o madre con Alzheimer, demencia o deterioro cognitivo. Para hijos cuidadores, sin formación médica.">
+    <meta name="keywords" content="alzheimer, demencia, cuidador familiar, estimulación cognitiva, padre con demencia, madre con alzheimer, deterioro cognitivo, actividades adultos mayores">
+    <link rel="icon" href="assets-shared/favicon.ico">
+
+    <meta property="og:title" content="El día que mi madre dejó de reconocerme — descubrí estas 5 actividades">
+    <meta property="og:description" content="Un sistema de 15 minutos al día para acompañar a tu padre o madre con Alzheimer o demencia. Sin formación médica, sin culpa.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="assets-step-01/hero-mockup.png">
+
+    <link rel="preload" as="image" href="assets-step-01/hero-mockup.png" fetchpriority="high">
+
+    <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;line-height:1.6;color:#333;font-size:1rem;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeSpeed}
+    .container{max-width:1200px;margin:0 auto;padding:0 1rem;width:100%}
+    .top-urgency-banner{background:#7c3aed;color:white;text-align:center;padding:.75rem 1rem;font-weight:600;position:sticky;top:0;z-index:1000;font-size:.9rem}
+    .top-urgency-banner p{margin:0;font-size:.95rem;font-weight:600;white-space:nowrap}
+    @media(max-width:480px){.top-urgency-banner{font-size:.8rem;padding:.6rem .5rem}.top-urgency-banner p{font-size:.85rem}}
+    #hero{background:#f8fafc;text-align:center;padding:3rem 0}
+    #hero h1{font-size:clamp(1.7rem,4.5vw,2.8rem);font-weight:800;color:#1a202c;margin-bottom:1rem;line-height:1.25;max-width:900px;margin-left:auto;margin-right:auto}
+    .subtitle{font-size:1.2rem;color:#4a5568;margin-bottom:2rem;max-width:720px;margin-left:auto;margin-right:auto}
+    .content-image-container{margin:2rem auto;max-width:600px}
+    .content-image{max-width:100%;height:auto;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.1)}
+    .btn{display:inline-block;padding:1rem 2rem;font-size:1.1rem;font-weight:600;text-decoration:none;border-radius:8px;transition:all .3s ease;border:none;cursor:pointer;text-align:center;min-height:44px;min-width:44px;touch-action:manipulation}
+    .btn-primary{background:#7c3aed;color:white;box-shadow:0 4px 15px rgba(124,58,237,.3)}
+    .btn-primary:hover{background:#6d28d9;transform:translateY(-2px);box-shadow:0 6px 20px rgba(124,58,237,.4)}
+    img{max-width:100%;height:auto;display:block}
+    input,textarea,select{font-size:16px}
+    @media (max-width:768px){.container{padding:0 .75rem}#hero{padding:2rem 0}#hero h1{font-size:1.6rem;line-height:1.2;margin-bottom:.75rem}.subtitle{font-size:1.05rem;margin-bottom:1.5rem}.btn{padding:.875rem 1.5rem;font-size:1rem}}
+    </style>
+
+    <link rel="stylesheet" href="index.css">
+
+    <!-- ====== OVERRIDES (consistência visual roxa + novas seções) ====== -->
+    <style>
+      /* ===== Fixes responsivos ===== */
+      html { overflow-x: clip; }
+      body { overflow-x: clip; max-width: 100vw; }
+      * { max-width: 100%; }
+      img, video { max-width: 100%; height: auto; }
+
+      /* Banner sticky garantido + texto que quebra */
+      .top-urgency-banner { position: sticky !important; top: 0 !important; z-index: 1000 !important; }
+      .top-urgency-banner p { white-space: normal !important; font-size: .85rem !important; line-height: 1.35 !important; }
+      @media (max-width: 480px) {
+        .top-urgency-banner p { font-size: .78rem !important; }
+      }
+
+      /* Plans title responsivo */
+      .plans-section-title { white-space: normal !important; }
+      #dynamic-promo-text { display: block; line-height: 1.5; font-size: .95rem; }
+      @media (max-width: 480px) {
+        #dynamic-promo-text { font-size: .85rem; }
+      }
+
+      /* H1 + subtitle do hero garantindo wrap */
+      #hero h1 { word-wrap: break-word; overflow-wrap: break-word; }
+      .subtitle { word-wrap: break-word; overflow-wrap: break-word; }
+
+      /* Container nunca estoura */
+      .container { max-width: 100% !important; box-sizing: border-box; }
+      @media (min-width: 1200px) { .container { max-width: 1200px !important; } }
+
+      /* Notificações abaixo do banner (não colidem) */
+      .purchase-notifications-container {
+        top: 56px !important;
+        right: 16px !important;
+        max-width: calc(100vw - 32px);
+      }
+      .purchase-notification { max-width: 320px !important; box-sizing: border-box; }
+      @media (max-width: 480px) {
+        .purchase-notifications-container { top: 70px !important; right: 8px !important; left: 8px !important; max-width: calc(100vw - 16px); }
+        .purchase-notification { max-width: 100% !important; font-size: .82rem !important; padding: 12px 14px !important; }
+      }
+
+      /* fundo do plans em roxo coeso com a marca */
+      #plans { background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%) !important; }
+      #plans .limited-time-banner { background: #fbbf24 !important; color: #1a202c !important; }
+      #plans .plan-popular, #plans .plan-badge { background: #7c3aed !important; }
+      #plans .plan-features-new li:before { color: #7c3aed !important; }
+      .plan-card { color: #1a202c; }
+
+      /* Microcopy de preço no hero */
+      .hero-price-hint { font-size: .95rem; color: #64748b; margin-top: .75rem; }
+      .hero-price-hint strong { color: #7c3aed; font-weight: 800; }
+
+      /* ===== Como funciona ===== */
+      #como-funciona { background: #faf5ff; padding: 4rem 0; }
+      #como-funciona h2 { text-align: center; font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; color: #1a202c; margin-bottom: .5rem; letter-spacing: -.02em; }
+      #como-funciona .como-sub { text-align: center; color: #64748b; max-width: 600px; margin: 0 auto 3rem; font-size: 1.05rem; }
+      .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; max-width: 1100px; margin: 0 auto; }
+      .step-card { background: white; border-radius: 16px; padding: 28px 24px; box-shadow: 0 8px 24px rgba(124,58,237,.08); border: 1px solid rgba(124,58,237,.12); position: relative; }
+      .step-num { display: inline-flex; width: 40px; height: 40px; background: #7c3aed; color: white; border-radius: 50%; align-items: center; justify-content: center; font-weight: 800; font-size: 1.1rem; margin-bottom: 16px; }
+      .step-card h3 { font-size: 1.2rem; font-weight: 700; color: #1a202c; margin-bottom: 10px; line-height: 1.3; }
+      .step-card p { font-size: .95rem; color: #475569; line-height: 1.55; margin: 0; }
+      .step-card .step-meta { display: inline-block; margin-top: 12px; font-size: .8rem; font-weight: 700; color: #7c3aed; background: #f3e8ff; padding: 4px 10px; border-radius: 4px; }
+
+      /* ===== Esto NO es ===== */
+      #not-this { background: white; padding: 4rem 0; }
+      #not-this h2 { text-align: center; font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 800; color: #1a202c; margin-bottom: .5rem; letter-spacing: -.02em; }
+      #not-this .not-sub { text-align: center; color: #64748b; max-width: 580px; margin: 0 auto 2.5rem; font-size: 1rem; }
+      .not-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; max-width: 1000px; margin: 0 auto; }
+      .not-card { padding: 24px; border: 2px solid #fee2e2; border-radius: 12px; background: #fef2f2; }
+      .not-card .not-icon { font-size: 1.8rem; margin-bottom: 8px; }
+      .not-card h3 { font-size: 1.05rem; font-weight: 700; color: #991b1b; margin-bottom: 8px; }
+      .not-card p { font-size: .9rem; color: #7f1d1d; line-height: 1.5; margin: 0; }
+      .yes-card-row { margin-top: 32px; padding: 24px; background: #f0fdf4; border: 2px solid #bbf7d0; border-radius: 12px; max-width: 720px; margin-left: auto; margin-right: auto; text-align: center; }
+      .yes-card-row strong { color: #166534; font-size: 1.05rem; }
+      .yes-card-row p { color: #14532d; font-size: .95rem; margin-top: 6px; line-height: 1.55; }
+
+      /* ===== Sticky CTA mobile ===== */
+      .sticky-cta-alz {
+        position: fixed; bottom: 0; left: 0; right: 0;
+        background: white;
+        border-top: 2px solid #7c3aed;
+        padding: 12px 16px;
+        display: none; align-items: center; justify-content: space-between; gap: 12px;
+        box-shadow: 0 -4px 16px rgba(0,0,0,.1);
+        z-index: 99;
+      }
+      .sticky-cta-alz .sticky-info { font-size: .82rem; color: #1a202c; font-weight: 600; line-height: 1.3; flex: 1; }
+      .sticky-cta-alz .sticky-info strong { color: #7c3aed; font-size: 1rem; display: block; }
+      .sticky-cta-alz .sticky-btn { background: #7c3aed; color: white; padding: 12px 18px; border-radius: 8px; font-weight: 700; font-size: .9rem; text-decoration: none; white-space: nowrap; }
+      .sticky-cta-alz .sticky-btn:hover { background: #6d28d9; }
+      @media (max-width: 768px) { .sticky-cta-alz { display: flex; } body { padding-bottom: 80px; } }
+    </style>
+</head>
+<body>
+
+    <!-- Top urgency banner -->
+    <div class="top-urgency-banner">
+        <div class="container">
+            <p>¡Hoy! Sistema completo con 90% OFF · Termina en <span id="countdown-timer" style="font-weight: 700;">23:59:59</span></p>
+        </div>
+    </div>
+
+    <section id="hero">
+        <div class="container">
+            <h1>El día que mi madre dejó de reconocerme, descubrí que <span style="color: #7c3aed; font-weight: 900;">15 minutos al día</span> podían traerla de vuelta — al menos por un rato.</h1>
+            <p class="subtitle">Un sistema con +100 actividades adaptadas por estadio (leve, moderado, avanzado) para acompañar a tu padre o madre con Alzheimer, demencia o deterioro cognitivo. Sin formación médica. Sin culpa.</p>
+            <p style="font-size: 1rem; color: #16a34a; font-weight: 600; margin-bottom: 2rem; max-width: 700px; margin-left: auto; margin-right: auto;">Descarga inmediata en PDF · Imprime solo lo que necesitas · Empieza hoy con tu padre.</p>
+
+            <div class="content-image-container">
+                <img src="assets-step-01/hero-mockup.png" alt="Sistema de estimulación cognitiva y movimiento para adultos mayores con Alzheimer" class="content-image" fetchpriority="high" decoding="async">
+            </div>
+
+            <button id="cta-hero" class="btn btn-primary">OBTENER ACCESO AHORA</button>
+            <p class="hero-price-hint">Acceso desde <strong>$3,99</strong> · sin suscripción · pago único · garantía 30 días</p>
+            <div class="rating" style="margin-top: 1.25rem;">
+                <div class="stars">★★★★★</div>
+                Calificado 4,9 por más de <strong>1.200 hijos cuidadores</strong> en LATAM y España
+            </div>
+        </div>
+    </section>
+
+    <section id="benefits">
+        <div class="container">
+            <h2 class="benefits-title">Lo que cambia en tu casa</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">💜</div>
+                    <h3>Momentos de conexión real</h3>
+                    <p>Actividades pensadas para que él te mire a los ojos, sonría y vuelva a estar presente — aunque sea por unos minutos.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🧠</div>
+                    <h3>Estimulación por estadio</h3>
+                    <p>Tres niveles distintos: leve, moderado y avanzado. No es lo mismo lo que necesita papá esta semana que el mes pasado.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">😌</div>
+                    <h3>Menos crisis, menos agitación</h3>
+                    <p>Rutinas de 15 minutos que reducen episodios de ansiedad por la tarde (sundowning) y ayudan a dormir mejor.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🤝</div>
+                    <h3>Sin formación médica</h3>
+                    <p>Diseñado para ti, hijo o hija que cuida en casa — no para un geriatra. Si sabes leer y tener paciencia, puedes hacerlo.</p>
+                </div>
+            </div>
+            <div class="benefits-cta-container">
+                <button id="cta-benefits" class="btn btn-secondary">QUIERO TRAER A MAMÁ DE VUELTA</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="personas">
+        <div class="container">
+            <h2 class="personas-title">Para quién es este sistema</h2>
+            <div style="max-width: 600px; width: 100%; margin: 20px auto;">
+                <img src="assets-step-01/target-audience-mockup.png" alt="Sistema para hijos cuidadores de padres con Alzheimer o demencia" loading="lazy" decoding="async" style="width: 100%; height: auto; display: block;">
+            </div>
+            <div class="personas-grid">
+                <div class="persona">
+                    <h3>Hijos que cuidan en casa</h3>
+                    <p>Hijas e hijos que dejaron de salir, redujeron horas en el trabajo, y conviven 24/7 con un padre que cambió.</p>
+                </div>
+                <div class="persona">
+                    <h3>Hijos que viven lejos</h3>
+                    <p>Quieres dejar algo concreto cuando vas de visita — o que la cuidadora aplique sin tener que pagar un terapeuta cada semana.</p>
+                </div>
+                <div class="persona">
+                    <h3>Hermanos que se turnan</h3>
+                    <p>Familias que se reparten los días. Una sola guía, mismo método, sin desorden ni conflictos sobre "cómo lo hacíamos antes".</p>
+                </div>
+                <div class="persona">
+                    <h3>Cuidadores contratados</h3>
+                    <p>Para profesionales de acompañamiento que necesitan un material serio y respetuoso para trabajar con adultos con demencia.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="como-funciona">
+        <div class="container">
+            <h2>Cómo funciona — en 3 pasos simples</h2>
+            <p class="como-sub">Diseñado para hijos sin formación médica. Empezás esta misma tarde, sin instalar nada.</p>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-num">1</div>
+                    <h3>Identificá el estadio de tu padre</h3>
+                    <p>Test rápido de 2 minutos. Te decimos si está en estadio leve, moderado o avanzado — para que cada actividad esté calibrada al nivel real de hoy, no al de hace un año.</p>
+                    <span class="step-meta">⏱ 2 minutos</span>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">2</div>
+                    <h3>Imprimí las actividades del día</h3>
+                    <p>Cada día tiene 3 bloques: mañana, tarde y antes de dormir. Imprimís sólo lo que vas a usar hoy. Material listo, sin pensar, sin improvisar.</p>
+                    <span class="step-meta">🖨 sin instalar nada</span>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">3</div>
+                    <h3>15 minutos cada bloque</h3>
+                    <p>Cada actividad viene con guión exacto: qué decir, qué materiales usar (todos de casa), qué hacer si se frustra. Sin formación médica.</p>
+                    <span class="step-meta">💜 con guion exacto</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials-carousel">
+        <div class="container">
+            <h2 class="testimonials-carousel-title">Hijos cuidadores que ya cambiaron sus tardes</h2>
+            <div class="carousel-container">
+                <div class="carousel-wrapper">
+                    <div class="carousel-slides" id="carousel-slides">
+                        <div class="carousel-slide active">
+                            <img src="assets-step-01/testimonio-1.png" alt="Testimonio de cuidadora 1" loading="lazy">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets-step-01/testimonio-2.png" alt="Testimonio de cuidadora 2" loading="lazy">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets-step-01/testimonio-3.png" alt="Testimonio de cuidadora 3" loading="lazy">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets-step-01/testimonio-4.png" alt="Testimonio de cuidadora 4" loading="lazy">
+                        </div>
+                    </div>
+                    <button class="carousel-btn carousel-prev" id="carousel-prev"><span>‹</span></button>
+                    <button class="carousel-btn carousel-next" id="carousel-next"><span>›</span></button>
+                </div>
+                <div class="carousel-dots" id="carousel-dots">
+                    <span class="carousel-dot active" data-slide="0"></span>
+                    <span class="carousel-dot" data-slide="1"></span>
+                    <span class="carousel-dot" data-slide="2"></span>
+                    <span class="carousel-dot" data-slide="3"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="plans">
+        <div class="container">
+            <h2 class="plans-section-title">Elige tu acceso</h2>
+            <div class="limited-time-banner">
+                <span id="dynamic-promo-text">⏰ Descuento del 90% válido <strong>SOLO HOY</strong> · termina a las 23:59h del <span id="promo-date">09/06/2026</span> · cierra en <span id="countdown-timer-2" style="font-weight: 800;">23:59:59</span></span>
+            </div>
+            <div class="plans-grid">
+                <div class="plan-card plan-basic-new">
+                    <h3>Guía Esencial</h3>
+                    <div class="price-section">
+                        <div class="old-price">De $ 39</div>
+                        <div class="current-price">$ 3,99</div>
+                        <div class="discount-badge">90% de DESCUENTO</div>
+                    </div>
+                    <ul class="plan-features-new">
+                        <li>✓ +100 actividades adaptadas por estadio (leve, moderado, avanzado)</li>
+                        <li>✓ Protocolo de 15 minutos / 3 veces al día</li>
+                        <li>✓ Listo para imprimir y empezar hoy</li>
+                        <li>✓ Garantía de 14 días</li>
+                    </ul>
+                    <a href="https://pay.hotmart.com/U104294498Q?off=basico-alz&checkoutMode=10" id="cta-basic" class="btn btn-basic-new" target="_blank" rel="noopener noreferrer">QUIERO LA GUÍA ESENCIAL</a>
+                    <div class="security-icons-new">
+                        <img src="assets-step-01/security-badges.png" alt="Compra Segura, Satisfacción Garantizada, Privacidad Protegida" class="security-badges" loading="lazy" decoding="async">
+                    </div>
+                </div>
+
+                <div class="plan-card plan-premium-new">
+                    <div class="plan-badge-new">EL QUE COMPRAN LOS HIJOS</div>
+                    <h3>Sistema Completo</h3>
+                    <div class="price-section">
+                        <div class="old-price">De $ 99</div>
+                        <div class="current-price">$ 9,99</div>
+                        <div class="discount-badge">90% de DESCUENTO</div>
+                    </div>
+                    <div class="basic-included">Incluye todo de la Guía Esencial +</div>
+                    <ul class="plan-features-premium">
+                        <li>✓ +100 actividades adaptadas por estadio</li>
+                        <li>✓ Protocolo de 15 minutos / 3 veces al día</li>
+                        <li>✓ Acceso de por vida + actualizaciones</li>
+                        <li>✓ Garantía de 30 días</li>
+                        <li class="premium-feature">🎁 Guía: Cómo hablar con tu padre cuando ya no te reconoce</li>
+                        <li class="premium-feature">🎁 Cartilla de Sundowning — qué hacer cuando se agita por la tarde</li>
+                        <li class="premium-feature">🎁 Señales de alerta: cuándo es una crisis y cuándo es la enfermedad</li>
+                        <li class="premium-feature">🎁 Plan semanal imprimible (4 estadios × 7 días)</li>
+                        <li class="premium-feature">🎁 Audios para sesiones de calma (descarga MP3)</li>
+                    </ul>
+                    <a href="https://pay.hotmart.com/U104294498Q?checkoutMode=10" id="cta-premium" class="btn btn-premium-new" target="_blank" rel="noopener noreferrer">QUIERO EL SISTEMA COMPLETO</a>
+                    <div class="testimonial-count">Más de 1.200 hijos cuidadores ya lo están usando</div>
+                    <div class="security-icons-new">
+                        <img src="assets-step-01/security-badges.png" alt="Compra Segura, Satisfacción Garantizada, Privacidad Protegida" class="security-badges" loading="lazy" decoding="async">
+                    </div>
+                </div>
+            </div>
+
+            <div class="guarantee-image-container">
+                <img src="assets-step-01/guarantee-seal.png" alt="Garantía de 30 días - Pruébalo sin riesgo" class="guarantee-image" loading="lazy" decoding="async">
+            </div>
+
+            <div id="guarantee-inline" class="guarantee">Pruébalo durante 30 días con tu padre. Si no te ayuda a tener un momento de conexión, te devolvemos el 100%. Sin preguntas.</div>
+        </div>
+    </section>
+
+    <section id="testimonials">
+        <div class="container">
+            <h2 class="testimonials-title">Lo que cuentan otras hijas e hijos</h2>
+            <p class="testimonials-subtitle">Fragmentos reales de mensajes que nos llegan. Cada historia es distinta — los resultados también.</p>
+            <div class="testimonial">
+                <p>"Mi mamá tiene Alzheimer moderado. Llevábamos meses sin que me mirara con esa chispa de antes. La tercera tarde con la actividad de las fotos antiguas, me apretó la mano. Lloré. Vale cada peso."</p>
+                <div class="author">
+                    <img src="assets-step-01/author-carmen-lopez.webp" alt="Lucía H. - Testimonio de cuidadora" class="author-photo" loading="lazy" decoding="async">
+                    <div>
+                        <div class="author-name">Lucía H., 52 años — Ciudad de México</div>
+                        <div class="author-stars">⭐⭐⭐⭐⭐</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial">
+                <p>"Soy ingeniera, no sabía nada de demencia. Lo que más me ayudó fue la guía de 'cómo hablar cuando ya no te reconoce'. Dejé de corregirla cuando me llamaba por el nombre de mi tía. Ahora simplemente le sigo la conversación. Hay paz en casa."</p>
+                <div class="author">
+                    <img src="assets-step-01/author-maria-gonzalez.webp" alt="Beatriz F. - Testimonio de cuidadora" class="author-photo" loading="lazy" decoding="async">
+                    <div>
+                        <div class="author-name">Beatriz F., 48 años — Madrid</div>
+                        <div class="author-stars">⭐⭐⭐⭐⭐</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial">
+                <p>"Vivo en Buenos Aires, mi papá está en Mendoza con mi hermana. Le imprimí el plan semanal y se lo llevé en mi visita. Ahora ella tiene un guion y yo no me siento tan inútil cuando estoy lejos. Es lo mejor que le pude regalar."</p>
+                <div class="author">
+                    <img src="assets-step-01/author-luis-torres.webp" alt="Roberto S. - Testimonio de cuidador" class="author-photo" loading="lazy" decoding="async">
+                    <div>
+                        <div class="author-name">Roberto S., 56 años — Buenos Aires</div>
+                        <div class="author-stars">⭐⭐⭐⭐⭐</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bonus-button-container">
+                <a href="#plans" class="btn bonus-btn">QUIERO MI SISTEMA</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="not-this">
+        <div class="container">
+            <h2>Antes de comprar, sé honesta con vos misma</h2>
+            <p class="not-sub">Si ya gastaste plata en cosas que prometieron lo que no podían cumplir — entendemos. Por eso queremos ser claros sobre lo que <strong>NO</strong> es este sistema.</p>
+            <div class="not-grid">
+                <div class="not-card">
+                    <div class="not-icon">❌</div>
+                    <h3>NO es una cura</h3>
+                    <p>El Alzheimer y la demencia no se curan. Cualquiera que te diga lo contrario te está mintiendo. Lo nuestro es darte momentos buenos en el día, no revertir la enfermedad.</p>
+                </div>
+                <div class="not-card">
+                    <div class="not-icon">❌</div>
+                    <h3>NO reemplaza al geriatra</h3>
+                    <p>Tu papá necesita seguir con su neurólogo, su medicación y sus consultas. Este sistema es un complemento para los 23 horas que vos pasás con él entre consulta y consulta.</p>
+                </div>
+                <div class="not-card">
+                    <div class="not-icon">❌</div>
+                    <h3>NO es terapia profesional</h3>
+                    <p>No vas a hacer rehabilitación neurológica con esto. Vas a tener herramientas para conectar, estimular y reducir crisis — desde tu rol de hija o hijo cuidador.</p>
+                </div>
+                <div class="not-card">
+                    <div class="not-icon">❌</div>
+                    <h3>NO funciona si no lo hacés</h3>
+                    <p>Te lo decimos directo: si lo descargás y no lo aplicás, no va a pasar nada. El sistema es simple, pero necesita 15 minutos al día de vos.</p>
+                </div>
+            </div>
+            <div class="yes-card-row">
+                <strong>✅ Lo que SÍ es:</strong>
+                <p>Un plan concreto, paso a paso, escrito por gente que cuidó a sus propios padres con demencia — para que vos dejes de improvisar y empieces a tener momentos buenos con tu papá o mamá esta misma semana.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq">
+        <div class="container">
+            <h2 class="faq-title">Preguntas frecuentes</h2>
+            <div class="faq-item">
+                <button class="faq-question">
+                    Mi padre está en estadio avanzado y no responde a nada. ¿Esto sirve para él?
+                    <span>+</span>
+                </button>
+                <div class="faq-answer">
+                    Sí. El nivel "avanzado" tiene actividades que no exigen palabras: estimulación táctil con texturas, música familiar de su juventud, masaje guiado de manos, aromas que él reconoce. El objetivo no es que él hable — es que durante esos minutos haya un encuentro entre los dos.
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    No tengo formación médica. ¿Voy a poder hacerlo?
+                    <span>+</span>
+                </button>
+                <div class="faq-answer">
+                    El sistema está escrito para hijos, no para terapeutas. Cada actividad tiene 3 cosas: qué materiales necesitas (todos de casa), qué decir paso a paso, y qué hacer si tu padre se frustra o se distrae. Si sabes leer y tener paciencia, puedes empezar hoy.
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    ¿En cuánto tiempo voy a notar algo?
+                    <span>+</span>
+                </button>
+                <div class="faq-answer">
+                    La mayoría de las familias reportan un primer "momento de conexión" en los primeros 3 a 7 días — una sonrisa, un apretón de mano, una palabra. Lo que toma más tiempo (3-4 semanas) es reducir crisis y agitación. No prometemos curar la demencia — eso no se puede. Prometemos que tendrás más momentos buenos en el día.
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    ¿Sirve para Alzheimer, demencia vascular, deterioro cognitivo o Parkinson?
+                    <span>+</span>
+                </button>
+                <div class="faq-answer">
+                    Sirve para cualquier forma de declinación cognitiva en adultos mayores donde haya preservada la capacidad de sentir, escuchar música o tocar objetos. El protocolo se adapta por estadio funcional, no por diagnóstico médico — así que funciona transversalmente.
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    ¿Cómo recibo el acceso?
+                    <span>+</span>
+                </button>
+                <div class="faq-answer">
+                    Después de la confirmación del pago, recibes un correo con el enlace de descarga inmediata. Puedes empezar a imprimir y aplicar la primera actividad en menos de 5 minutos.
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    ¿Y si lo pruebo y no me sirve?
+                    <span>+</span>
+                </button>
+                <div class="faq-answer">
+                    Tienes 30 días para probarlo con tu padre o madre. Si no te ayuda a tener al menos un momento de conexión, escribes a soporte y te devolvemos el 100%. Sin preguntas, sin trámites.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="#" class="footer-link">Política de Privacidad</a>
+                <a href="#" class="footer-link">Términos de Uso</a>
+                <a href="#" class="footer-link">Soporte</a>
+            </div>
+            <div class="footer-copyright">
+                © 2026. Sistema para hijos cuidadores. Este material no reemplaza la consulta médica ni el seguimiento por un geriatra.
+            </div>
+        </div>
+    </footer>
+
+    <div id="purchase-notifications" class="purchase-notifications-container"></div>
+
+    <!-- Sticky CTA mobile -->
+    <div class="sticky-cta-alz">
+        <div class="sticky-info">
+            <strong>Sistema Completo · $9,99</strong>
+            <span>90% OFF · garantía 30 días</span>
+        </div>
+        <a href="#plans" class="sticky-btn">VER OFERTA →</a>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+      // Espelha countdown no banner do plans
+      (function syncCountdown() {
+        const src = document.getElementById('countdown-timer');
+        const dst = document.getElementById('countdown-timer-2');
+        if (!src || !dst) return;
+        new MutationObserver(() => dst.textContent = src.textContent).observe(src, { childList: true, characterData: true, subtree: true });
+        dst.textContent = src.textContent;
+      })();
+    </script>
+</body>
+</html>
