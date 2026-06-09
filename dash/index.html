@@ -1,0 +1,2330 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard · actividadesadultosmayores.com — Clone + Análise + Reposicionamento</title>
+<style>
+:root {
+  --ink-900: #0f172a;
+  --ink-800: #1e293b;
+  --ink-700: #334155;
+  --ink-600: #475569;
+  --ink-500: #64748b;
+  --ink-400: #94a3b8;
+  --ink-300: #cbd5e1;
+  --ink-200: #e2e8f0;
+  --ink-100: #f1f5f9;
+  --ink-50: #f8fafc;
+  --brand: #7c3aed;
+  --brand-dark: #6d28d9;
+  --brand-soft: #f3e8ff;
+  --accent: #f59e0b;
+  --green: #10b981;
+  --red: #ef4444;
+  --bg: #fafafa;
+  --card: #ffffff;
+  --border: rgba(15, 23, 42, 0.08);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.04);
+  --shadow: 0 4px 12px rgba(0,0,0,.06);
+  --shadow-lg: 0 20px 60px rgba(0,0,0,.08);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink-800);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--brand); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* === Layout === */
+.app {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  min-height: 100vh;
+}
+.sidebar {
+  background: var(--card);
+  border-right: 1px solid var(--border);
+  padding: 24px 16px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+.sidebar h1 {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--ink-900);
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+.sidebar .domain {
+  font-size: 12px;
+  color: var(--ink-500);
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  margin-bottom: 20px;
+  word-break: break-all;
+}
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 24px;
+}
+.nav a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  color: var(--ink-700);
+  font-size: 13.5px;
+  font-weight: 500;
+  transition: all .15s;
+}
+.nav a:hover { background: var(--ink-100); color: var(--ink-900); text-decoration: none; }
+.nav a.active { background: var(--brand); color: white; }
+.nav-section {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-400);
+  padding: 12px 12px 6px;
+}
+.nav .emoji { font-size: 16px; width: 20px; text-align: center; }
+
+.content {
+  padding: 48px 56px;
+  max-width: 1100px;
+}
+@media (max-width: 900px) {
+  .app { grid-template-columns: 1fr; }
+  .sidebar { position: relative; height: auto; }
+  .content { padding: 24px 20px; }
+}
+
+/* === Sections === */
+section { margin-bottom: 80px; scroll-margin-top: 24px; }
+section h2 {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--ink-900);
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+section .lead {
+  font-size: 16px;
+  color: var(--ink-600);
+  margin-bottom: 32px;
+  max-width: 720px;
+}
+h3 { font-size: 20px; font-weight: 700; color: var(--ink-900); margin: 32px 0 12px; letter-spacing: -0.01em; }
+h4 { font-size: 16px; font-weight: 700; color: var(--ink-800); margin: 24px 0 8px; }
+p { margin-bottom: 12px; color: var(--ink-700); }
+ul, ol { margin: 12px 0 16px 22px; color: var(--ink-700); }
+li { margin-bottom: 6px; }
+
+/* === Cards === */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 16px;
+}
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.card-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--brand-soft);
+  color: var(--brand-dark);
+}
+.card-tag.green { background: #d1fae5; color: #047857; }
+.card-tag.red { background: #fee2e2; color: #b91c1c; }
+.card-tag.yellow { background: #fef3c7; color: #92400e; }
+.card-tag.gray { background: var(--ink-100); color: var(--ink-700); }
+
+/* === Hero === */
+.hero {
+  background: linear-gradient(135deg, var(--brand) 0%, #6d28d9 100%);
+  color: white;
+  border-radius: 20px;
+  padding: 48px;
+  margin-bottom: 48px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(255,255,255,.15), transparent 70%);
+  pointer-events: none;
+}
+.hero h1 {
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+  line-height: 1.15;
+  position: relative;
+}
+.hero p {
+  color: rgba(255,255,255,.85);
+  font-size: 17px;
+  max-width: 600px;
+  margin-bottom: 24px;
+  position: relative;
+}
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+  position: relative;
+}
+.stat {
+  background: rgba(255,255,255,.12);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 12px;
+  padding: 16px;
+}
+.stat-value { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; }
+.stat-label { font-size: 12px; color: rgba(255,255,255,.75); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 4px; }
+
+/* === Buttons === */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: var(--brand);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .15s;
+  text-decoration: none;
+}
+.btn:hover { background: var(--brand-dark); text-decoration: none; transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--brand); border: 1px solid var(--ink-200); }
+.btn-ghost:hover { background: var(--brand-soft); }
+.btn-small { padding: 6px 12px; font-size: 12px; }
+.btn-white { background: white; color: var(--brand); }
+.btn-white:hover { background: var(--ink-100); }
+
+/* === Code blocks === */
+pre, code {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 13px;
+}
+pre {
+  background: var(--ink-900);
+  color: #e2e8f0;
+  padding: 18px 20px;
+  border-radius: 10px;
+  overflow-x: auto;
+  margin: 12px 0;
+  line-height: 1.55;
+}
+code:not(pre code) {
+  background: var(--ink-100);
+  color: var(--ink-900);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+/* === Tables === */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 14px;
+  background: var(--card);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { background: var(--ink-50); font-weight: 700; color: var(--ink-900); font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; }
+tr:last-child td { border-bottom: none; }
+
+/* === Quote-style copy === */
+.copy-block {
+  background: var(--ink-50);
+  border-left: 4px solid var(--brand);
+  border-radius: 0 10px 10px 0;
+  padding: 20px 24px;
+  margin: 16px 0;
+  position: relative;
+}
+.copy-block .copy-text {
+  white-space: pre-wrap;
+  font-family: -apple-system, sans-serif;
+  font-size: 14px;
+  color: var(--ink-800);
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  line-height: 1.65;
+  overflow-x: visible;
+}
+.copy-block button.copy-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: white;
+  color: var(--ink-700);
+  border: 1px solid var(--ink-200);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.copy-block button.copy-btn:hover { background: var(--brand); color: white; border-color: var(--brand); }
+
+/* === Hook cards === */
+.hook-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+.hook {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.hook::before {
+  content: attr(data-number);
+  position: absolute;
+  top: -8px;
+  right: 16px;
+  font-size: 96px;
+  font-weight: 900;
+  color: var(--ink-100);
+  line-height: 1;
+  z-index: 0;
+}
+.hook > * { position: relative; }
+.hook .hook-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+.hook .hook-subtitle { font-size: 12px; color: var(--ink-500); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; margin-bottom: 16px; }
+.hook .hook-line { font-size: 16px; font-weight: 600; color: var(--ink-900); margin-bottom: 8px; padding: 12px; background: var(--brand-soft); border-radius: 8px; line-height: 1.4; }
+.hook .hook-vo { font-size: 13.5px; color: var(--ink-700); font-style: italic; margin: 8px 0 16px; line-height: 1.55; }
+.hook .hook-why { font-size: 13px; color: var(--ink-600); padding-top: 12px; border-top: 1px dashed var(--ink-200); }
+
+/* === Ad poster grid === */
+.poster-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin: 16px 0; }
+.poster {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  aspect-ratio: 9/16;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+.poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.poster .poster-meta { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,.85)); color: white; padding: 16px 12px 10px; font-size: 11px; }
+.poster .poster-meta .id { font-family: ui-monospace, monospace; opacity: .7; font-size: 10px; }
+.poster .poster-meta .badge { display: inline-block; background: var(--accent); color: black; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: 700; margin-bottom: 4px; }
+
+/* === Landing preview cards === */
+.landing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 20px; }
+.landing-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+}
+.landing-card .preview { aspect-ratio: 1.6; background: var(--ink-100); position: relative; overflow: hidden; }
+.landing-card .preview img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .4s ease; }
+.landing-card:hover .preview img { transform: scale(1.04); }
+.landing-card .preview .label { position: absolute; top: 16px; left: 16px; background: rgba(15,23,42,.85); color: white; padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+.landing-card .body { padding: 20px 24px; flex-grow: 1; display: flex; flex-direction: column; }
+.landing-card h4 { font-size: 18px; margin: 0 0 6px; }
+.landing-card p { font-size: 14px; color: var(--ink-600); margin-bottom: 16px; flex-grow: 1; }
+.landing-card .meta { font-size: 12px; color: var(--ink-500); margin-bottom: 14px; font-family: ui-monospace, monospace; }
+.landing-card .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* === Files index === */
+.files { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; }
+.file {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--ink-800);
+  font-size: 13.5px;
+  transition: all .15s;
+}
+.file:hover { border-color: var(--brand); background: var(--brand-soft); text-decoration: none; }
+.file .icon { font-size: 20px; }
+.file .name { font-family: ui-monospace, monospace; font-size: 12px; color: var(--ink-700); font-weight: 600; }
+.file .desc { font-size: 11px; color: var(--ink-500); }
+
+/* === Pricing comparison === */
+.pricing-vs { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+.pricing-col { padding: 24px; border-radius: 14px; border: 2px solid var(--border); background: var(--card); }
+.pricing-col.competitor { border-color: var(--ink-300); }
+.pricing-col.us { border-color: var(--brand); background: linear-gradient(135deg, white, #faf5ff); }
+.pricing-col h4 { margin-top: 0; }
+.price-big { font-size: 36px; font-weight: 800; color: var(--ink-900); margin: 8px 0; }
+.price-old { color: var(--ink-400); text-decoration: line-through; font-size: 14px; }
+
+/* === Misc === */
+.divider { height: 1px; background: var(--border); margin: 32px 0; }
+.muted { color: var(--ink-500); font-size: 13px; }
+.tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+.tag { font-size: 11px; padding: 3px 8px; border-radius: 999px; background: var(--ink-100); color: var(--ink-700); font-weight: 600; }
+.tag.brand { background: var(--brand-soft); color: var(--brand-dark); }
+.gap-fire { color: var(--red); }
+strong { color: var(--ink-900); }
+
+/* === Roteiros (timeline) === */
+.script { margin: 16px 0 32px; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; background: var(--card); }
+.script-step { display: grid; grid-template-columns: 110px 1fr; border-bottom: 1px solid var(--border); }
+.script-step:last-child { border-bottom: none; }
+.script-time {
+  background: var(--ink-50);
+  padding: 16px 14px;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--brand-dark);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 6px;
+}
+.script-time .step-num {
+  background: var(--brand);
+  color: white;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 800;
+}
+.script-content { padding: 14px 18px; display: flex; flex-direction: column; gap: 8px; font-size: 13.5px; line-height: 1.5; }
+.script-label {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 2px 7px;
+  border-radius: 4px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+.script-label.visual { background: #e0f2fe; color: #0369a1; }
+.script-label.legenda { background: #fef3c7; color: #92400e; }
+.script-label.vo { background: #f3e8ff; color: var(--brand-dark); }
+.script-label.func {
+  background: #1e293b;
+  color: white;
+  font-size: 9px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin-bottom: 6px;
+  display: inline-block;
+}
+.script-label.func.hook { background: #dc2626; }
+.script-label.func.agitar { background: #ea580c; }
+.script-label.func.solucao { background: #16a34a; }
+.script-label.func.mecanismo { background: #0369a1; }
+.script-label.func.bonus { background: #ca8a04; }
+.script-label.func.cta { background: var(--brand); }
+.script-label.func.prova { background: #7c2d12; }
+.script-label.func.descoberta { background: #0d9488; }
+.script-label.func.transformacao { background: #be123c; }
+.framework-card {
+  background: var(--card);
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+.framework-card h4 { display: flex; align-items: center; gap: 10px; margin-top: 0; }
+.framework-card h4 .badge-fmt { background: var(--brand); color: white; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 800; letter-spacing: 0.05em; }
+.formula { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; padding: 12px; background: var(--ink-50); border-radius: 8px; }
+.formula-step { padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; color: white; }
+.formula-step.hook { background: #dc2626; }
+.formula-step.agitar { background: #ea580c; }
+.formula-step.solucao { background: #16a34a; }
+.formula-step.mecanismo { background: #0369a1; }
+.formula-step.bonus { background: #ca8a04; }
+.formula-step.cta { background: var(--brand); }
+.formula-step.prova { background: #7c2d12; }
+.formula-step.descoberta { background: #0d9488; }
+.formula-step.transformacao { background: #be123c; }
+.formula-arrow { color: var(--ink-400); font-weight: 800; align-self: center; padding: 0 2px; }
+.script-row { color: var(--ink-700); }
+.script-row strong.txt { color: var(--ink-900); font-weight: 600; }
+.script-row em.legenda-txt { font-style: normal; font-weight: 700; color: var(--ink-900); background: #fef3c7; padding: 1px 6px; border-radius: 3px; }
+.script-row em.vo-txt { font-style: italic; color: var(--ink-800); }
+.script-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 32px 0 8px;
+}
+.script-header h4 { margin: 0; }
+
+.toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+  background: var(--ink-900); color: white; padding: 10px 18px;
+  border-radius: 8px; font-size: 13px; font-weight: 600;
+  opacity: 0; pointer-events: none; transition: opacity .2s;
+  z-index: 1000;
+}
+.toast.show { opacity: 1; }
+
+/* Raw VO panel (texto cru pro ElevenLabs) */
+.raw-vo {
+  margin: -24px 0 32px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: #faf5ff;
+  padding: 14px 18px;
+}
+.raw-vo-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.raw-vo-label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--brand-dark);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.raw-vo-copy {
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--brand);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background .15s;
+}
+.raw-vo-copy:hover { background: var(--brand-dark); }
+.raw-vo-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-900);
+  white-space: pre-wrap;
+  font-family: inherit;
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ============================= -->
+  <!-- SIDEBAR -->
+  <!-- ============================= -->
+  <aside class="sidebar">
+    <h1>📊 Dashboard</h1>
+    <div class="domain">actividadesadultos<br>mayores.com</div>
+
+    <div class="nav">
+      <a href="#overview" class="active"><span class="emoji">🏠</span>Visão geral</a>
+    </div>
+
+    <div class="nav-section">Análise competitiva</div>
+    <div class="nav">
+      <a href="#competitivo"><span class="emoji">🎯</span>O que ele roda</a>
+      <a href="#criativos"><span class="emoji">🎬</span>7 criativos analisados</a>
+      <a href="#gaps"><span class="emoji">🕳️</span>Gaps de mercado</a>
+    </div>
+
+    <div class="nav-section">Reposicionamento</div>
+    <div class="nav">
+      <a href="#estrategia"><span class="emoji">🧭</span>Estratégia Alzheimer</a>
+      <a href="#hooks"><span class="emoji">🪝</span>3 hooks</a>
+      <a href="#copy-ad"><span class="emoji">📝</span>Copy de anúncio</a>
+      <a href="#voz"><span class="emoji">🎙️</span>Voz / ElevenLabs</a>
+      <a href="#copys"><span class="emoji">📋</span>10 copies prontas</a>
+      <a href="#roteiros-concorrente"><span class="emoji">🎯</span>Roteiros do concorrente</a>
+      <a href="#framework"><span class="emoji">🧩</span>Framework de copy dele</a>
+      <a href="#roteiros"><span class="emoji">🎬</span>10 roteiros nossos</a>
+      <a href="#producao"><span class="emoji">🎥</span>Produção IA + Stock</a>
+      <a href="#campanha"><span class="emoji">📣</span>Setup de campanha</a>
+    </div>
+
+    <div class="nav-section">Landings</div>
+    <div class="nav">
+      <a href="#landings"><span class="emoji">🌐</span>Preview das páginas</a>
+    </div>
+
+    <div class="nav-section">Arquivos</div>
+    <div class="nav">
+      <a href="#arquivos"><span class="emoji">📂</span>Tudo gerado</a>
+    </div>
+  </aside>
+
+  <!-- ============================= -->
+  <!-- CONTENT -->
+  <!-- ============================= -->
+  <main class="content">
+
+    <!-- ================ OVERVIEW ================ -->
+    <section id="overview">
+      <div class="hero">
+        <h1>Clone + análise competitiva + reposicionamento para nicho órfão</h1>
+        <p>Concorrente escalado no Meta Ads desde Feb/2026 com 50+ ads. Mapeamos os ângulos que ele cobre, identificamos os gaps reais e desenhamos uma nova oferta para a persona "filha cuidadora de pai com Alzheimer" — 3x o ticket dele.</p>
+        <div class="hero-stats">
+          <div class="stat"><div class="stat-value">32</div><div class="stat-label">Ads ativos</div></div>
+          <div class="stat"><div class="stat-value">2</div><div class="stat-label">Copies únicas</div></div>
+          <div class="stat"><div class="stat-value">4mo</div><div class="stat-label">Warhorse no ar</div></div>
+          <div class="stat"><div class="stat-value">10</div><div class="stat-label">Países geo-pricing</div></div>
+          <div class="stat"><div class="stat-value">$19</div><div class="stat-label">Preço sugerido (vs $5.90)</div></div>
+        </div>
+      </div>
+      <p class="lead">Use a navegação à esquerda para pular entre seções. Tudo o que está aqui também está em arquivos <code>.md</code>, <code>.html</code> e <code>.txt</code> na raiz do projeto — abra os links na seção <strong>Arquivos</strong> para a versão crua.</p>
+    </section>
+
+    <!-- ================ COMPETITIVO ================ -->
+    <section id="competitivo">
+      <h2>🎯 O que ele realmente está rodando</h2>
+      <p class="lead">Mapeamos os 32 ads ativos na biblioteca de anúncios Meta (AR, ordenados por impressões). Resumo executivo do que o concorrente está fazendo.</p>
+
+      <table>
+        <thead><tr><th>Métrica</th><th>Valor</th></tr></thead>
+        <tbody>
+          <tr><td>Ads ativos</td><td><strong>32</strong></td></tr>
+          <tr><td>Formato</td><td>100% vídeo vertical (9:16)</td></tr>
+          <tr><td>Copies primárias únicas</td><td><strong>só 2</strong> (mesma estratégia, A/B leve)</td></tr>
+          <tr><td>Criativos únicos</td><td>26 (alguns reaproveitam vídeo)</td></tr>
+          <tr><td>Warhorse no ar</td><td><strong>Feb 6, 2026</strong> (4+ meses)</td></tr>
+          <tr><td>Bombardeio recente</td><td>20 ads em <strong>May 29</strong> + 6 em Jun 1</td></tr>
+          <tr><td>Durações</td><td>4s a 48s, mediana ~30s</td></tr>
+          <tr><td>Idioma</td><td>espanhol LATAM (AR + 9 países via geo-pricing)</td></tr>
+          <tr><td>Persona declarada</td><td>"Colega" + "gerontogimnasia" = profissional (fisio, T.O., ed. física)</td></tr>
+          <tr><td>Destino</td><td>Hotmart product <code>U104294498Q</code></td></tr>
+          <tr><td>Preço default</td><td>US$ 5.90 / 8.90 (entry-level)</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Copy #1 — usada em 25 dos 32 ads</h3>
+      <div class="copy-block">
+        <button class="copy-btn" onclick="copyText(this, '1')">copiar</button>
+        <pre id="copy-1" class="copy-text">🛑 ¿Sigues perdiendo horas buscando ejercicios en internet?
+
+Colega, tu tiempo vale oro. Deja de improvisar y ten a mano la herramienta definitiva para tus sesiones de gerontogimnasia. ⏱️
+
+Descarga ahora la Guía con +100 Actividades y Ejercicios para Adultos Mayores.
+
+✅ Listo para aplicar: Imprime y usa al instante.
+✅ Adaptable: Ejercicios sentados, de pie y cognitivos.
+✅ Variedad: Dinámicas de equilibrio, fuerza y memoria.
+
+🔥 OFERTA PREMIUM: Llévate la guía principal + 4 BONOS EXCLUSIVOS (incluyendo Prevención de Caídas y Guía Antiestrés) por un precio ridículo.</pre>
+      </div>
+
+      <h3>Copy #2 — warhorse Feb 6 + ~5 ads recentes</h3>
+      <div class="copy-block">
+        <button class="copy-btn" onclick="copyText(this, '2')">copiar</button>
+        <pre id="copy-2" class="copy-text">⚠️ ¡ATENCIÓN! Últimas horas de esta Promoción Especial ⚠️
+
+¿Por qué conformarte con una lista de ejercicios cuando puedes tener el SISTEMA COMPLETO?
+
+Obtén la Guía de +100 Actividades y desbloquea GRATIS estos 4 Regalos:
+🎁 Bono 1: Guía Antiestrés y Relajación.
+🎁 Bono 2: Clases de Equilibrio y Prevención de Caídas.
+🎁 Bono 3: Guía de Estiramientos Diarios.
+🎁 Bono 4: Rutinas para Casa.
+
+🚀 Todo esto por menos de lo que cuesta un almuerzo.
+🔒 Garantía de 7 días. Si no te gusta, te devolvemos tu dinero.</pre>
+      </div>
+    </section>
+
+    <!-- ================ CRIATIVOS ================ -->
+    <section id="criativos">
+      <h2>🎬 7 criativos analisados (posters)</h2>
+      <p class="lead">Capturamos 7 criativos representativos: o warhorse de Fevereiro + 5 do bombardeio de Maio + 1 do novo ângulo de Junho. Clique nas miniaturas para ver em tamanho real.</p>
+
+      <div class="poster-grid">
+        <a href="ads-library/creatives/01-930241332995064-poster.jpg" class="poster" target="_blank">
+          <img src="ads-library/creatives/01-930241332995064-poster.jpg" alt="Ad warhorse Feb 6">
+          <div class="poster-meta"><span class="badge">WARHORSE</span><br><strong>Feb 6 · 4s</strong><br><span class="id">930241332995064</span></div>
+        </a>
+        <a href="ads-library/creatives/02-2066835260843561-poster.jpg" class="poster" target="_blank">
+          <img src="ads-library/creatives/02-2066835260843561-poster.jpg" alt="Ad lumbalgia">
+          <div class="poster-meta"><strong>May 29 · 39s</strong><br>Cartilha lumbalgia/cervicalgia<br><span class="id">2066835260843561</span></div>
+        </a>
+        <a href="ads-library/creatives/03-1369922432009461-poster.jpg" class="poster" target="_blank">
+          <img src="ads-library/creatives/03-1369922432009461-poster.jpg" alt="Ad UGC carro">
+          <div class="poster-meta"><strong>May 29 · 29s</strong><br>UGC creator curiosidade<br><span class="id">1369922432009461</span></div>
+        </a>
+        <a href="ads-library/creatives/04-2352410748852620-poster.jpg" class="poster" target="_blank">
+          <img src="ads-library/creatives/04-2352410748852620-poster.jpg" alt="Ad cuidador familiar">
+          <div class="poster-meta"><strong>May 29 · 17s</strong><br>Cuidador familiar íntimo<br><span class="id">2352410748852620</span></div>
+        </a>
+        <a href="ads-library/creatives/05-828790796658385-poster.jpg" class="poster" target="_blank">
+          <img src="ads-library/creatives/05-828790796658385-poster.jpg" alt="Ad ginásio">
+          <div class="poster-meta"><strong>May 29 · 13s</strong><br>Ginásio + cartilhas<br><span class="id">828790796658385</span></div>
+        </a>
+        <a href="ads-library/creatives/06-1298211625288653-poster.jpg" class="poster" target="_blank">
+          <img src="ads-library/creatives/06-1298211625288653-poster.jpg" alt="Ad centro día">
+          <div class="poster-meta"><strong>Jun 1 · 14s</strong><br>Centro día grupo<br><span class="id">1298211625288653</span></div>
+        </a>
+        <a href="ads-library/creatives/07-1953231018637216-poster.jpg" class="poster" target="_blank">
+          <img src="ads-library/creatives/07-1953231018637216-poster.jpg" alt="Ad sofa">
+          <div class="poster-meta"><span class="badge">NOVO ÂNGULO</span><br><strong>Jun 2 · 34s</strong><br>"El sofá podría estar molestando"<br><span class="id">1953231018637216</span></div>
+        </a>
+      </div>
+
+      <h3>Padrões visuais identificados</h3>
+      <ul>
+        <li><strong>Headline mais reusada:</strong> "+100 ejercicios para adultos mayores / Material certificado para estimular memoria y equilibrio" — repetida em pelo menos 3 criativos com cores diferentes (amarelo, vermelho, branco).</li>
+        <li><strong>CTA visual padrão:</strong> "HAZ CLIC" no centro, fundo amarelo, font preta.</li>
+        <li><strong>Estilo geral:</strong> UGC simples, baixo orçamento de produção. Sem atores. Sem médicos. Sem celebridades.</li>
+        <li><strong>Trilha:</strong> majoritariamente música emocional latina + voiceover masculino jovem.</li>
+        <li><strong>Sinal de mudança:</strong> o ad #7 (Jun 2) é o mais recente e abriu um <span class="tag brand">ângulo emocional novo</span> — cuidador familiar com culpa. Indica que ele está sentindo o esgotamento do ângulo "profissional".</li>
+      </ul>
+    </section>
+
+    <!-- ================ GAPS ================ -->
+    <section id="gaps">
+      <h2>🕳️ Gaps de mercado — o que ele NÃO ataca</h2>
+      <p class="lead">Cruzamos a copy e os criativos com a base de dores possíveis. Listamos por tamanho de oportunidade (🔥 = potencial relativo).</p>
+
+      <table>
+        <thead><tr><th>Gap</th><th>Por quê é gap</th><th>Tamanho</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Alzheimer / demência específico</strong></td><td>Ele cita "memória" no overlay mas nenhum ad é especificamente sobre. Cuidador de Alzheimer é desesperado e paga mais.</td><td class="gap-fire">🔥🔥🔥</td></tr>
+          <tr><td><strong>Filho que mora longe</strong></td><td>Frame "morar longe, querer fazer algo pelo pai" — ele nunca tocou nessa dor.</td><td class="gap-fire">🔥🔥🔥</td></tr>
+          <tr><td><strong>Pós-AVC / reabilitação neurológica</strong></td><td>Zero. Mercado de neurorreabilitação domiciliar é enorme.</td><td class="gap-fire">🔥🔥🔥</td></tr>
+          <tr><td><strong>Religioso / espiritual</strong></td><td>Comunidade católica latina é gigante. Atividades com tema bíblico, oração + movimento, terapia em paróquia. Zero.</td><td class="gap-fire">🔥🔥🔥</td></tr>
+          <tr><td>Idoso acamado</td><td>Os exercícios dele são "sentado, em pé, cognitivo" — ninguém para quem não levanta.</td><td>🔥🔥</td></tr>
+          <tr><td>Parkinson</td><td>Doença com 10M+ pacientes globais, alta dor.</td><td>🔥🔥</td></tr>
+          <tr><td>Saúde mental / depressão / solidão</td><td>Não há ad sobre "tirar o idoso da depressão".</td><td>🔥🔥</td></tr>
+          <tr><td>Endosso médico / autoridade clínica</td><td>Sem doutor, sem geriatra, sem hospital. Apenas "material certificado" (sem dizer por quem).</td><td>🔥🔥</td></tr>
+          <tr><td>B2B asilo / gestor de instituição</td><td>Ele vende pra educador físico individual. Quem decide compra em asilo é o gestor.</td><td>🔥🔥</td></tr>
+          <tr><td>Mecanismo nominal</td><td>"+100 atividades" é commodity. Ele não nomeou um método.</td><td>🔥🔥</td></tr>
+          <tr><td>Antes×depois transformação</td><td>Todos os vídeos mostram só o "depois ativo". Nenhum mostra "antes apático".</td><td>🔥🔥</td></tr>
+          <tr><td>Pesquisa científica / dados</td><td>Sem nenhum % ("idosos ativos têm X% menos chance de cair"). Promessas vagas.</td><td>🔥</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ================ ESTRATÉGIA ================ -->
+    <section id="estrategia">
+      <h2>🧭 Estratégia: Alzheimer / demência para a filha cuidadora</h2>
+      <p class="lead">Vencemos o concorrente sem brigar de frente. Fatia diferente (filha cuidadora), preço diferente (3x), mecanismo diferente (protocolo por estadio).</p>
+
+      <div class="pricing-vs">
+        <div class="pricing-col competitor">
+          <span class="card-tag gray">Concorrente</span>
+          <h4>+100 Actividades para Adultos Mayores</h4>
+          <div class="price-old">De $ 49</div>
+          <div class="price-big">$ 5.90</div>
+          <p class="muted">Persona: profissional (fisio, ed. física)<br>Mecanismo: "+100 atividades imprimíveis"<br>Garantia: 7 dias<br>Tom: urgência + desconto agressivo</p>
+        </div>
+        <div class="pricing-col us">
+          <span class="card-tag">Nossa oferta</span>
+          <h4>Sistema Completo para Hijos Cuidadores</h4>
+          <div class="price-old">De $ 167</div>
+          <div class="price-big" style="color: var(--brand);">$ 19</div>
+          <p class="muted">Persona: filha cuidadora de pai/mãe com Alzheimer<br>Mecanismo: protocolo 15min × 3 vezes/dia × estadio<br>Garantia: 30 dias<br>Tom: emocional + alívio da culpa</p>
+        </div>
+      </div>
+
+      <h3>Persona-alvo</h3>
+      <div class="card">
+        <strong>Filha (ou filho) 45–65 anos cuidando do pai/mãe com Alzheimer, demência ou deterioro cognitivo em casa.</strong>
+        <ul style="margin-top: 12px;">
+          <li><strong>Dores reais:</strong> "ele não me reconhece mais", "não sei o que fazer pra ele ficar calmo", crises da tarde (sundowning), culpa, isolamento.</li>
+          <li><strong>O que ela já fez:</strong> consultou 2-3 geriatras (gastou caro), pesquisou no Google, comprou suplemento, contratou cuidadora. Continua sem saber o que fazer no dia a dia.</li>
+          <li><strong>O que ela tem:</strong> tempo limitado, paciência variável, sem formação clínica, alta carga emocional.</li>
+          <li><strong>Disposição a pagar:</strong> alta (US$19-37 sem hesitação se o mecanismo for específico).</li>
+          <li><strong>Onde está:</strong> Facebook (49–65 é o sweet spot do FB orgânico LATAM), grupos de "cuidadores familiares", canais de YouTube de neurologia popular.</li>
+        </ul>
+      </div>
+
+      <h3>Bônus killer do Premium</h3>
+      <ul>
+        <li>🎁 Guía: <strong>Cómo hablar con tu padre cuando ya no te reconoce</strong> <span class="tag brand">alto valor emocional</span></li>
+        <li>🎁 Cartilha de Sundowning — qué hacer cuando se agita por la tarde</li>
+        <li>🎁 Señales de alerta: cuándo es una crisis y cuándo es la enfermedad</li>
+        <li>🎁 Plan semanal imprimível (4 estadios × 7 dias)</li>
+        <li>🎁 Audios MP3 para sesiones de calma</li>
+      </ul>
+    </section>
+
+    <!-- ================ HOOKS ================ -->
+    <section id="hooks">
+      <h2>🪝 3 hooks de teste</h2>
+      <p class="lead">Cada hook é desenhado pra fisgar nos primeiros 3 segundos. Suba os 3 em paralelo, US$30/dia cada, mate o pior em 4 dias, escale o vencedor 2x.</p>
+
+      <div class="hook-grid">
+        <div class="hook" data-number="1">
+          <div class="hook-title">La confesión</div>
+          <div class="hook-subtitle">Gancho de história</div>
+          <div class="hook-line">"El día que mi madre dejó de reconocerme."</div>
+          <p class="hook-vo">"El día que mi madre dejó de reconocerme, lloré toda la noche. Al día siguiente, no fui al psicólogo, no fui al médico. Hice esto."</p>
+          <div class="hook-why"><strong>Por quê:</strong> abertura confessional para o scroll do feed e ativa identificação imediata na persona certa. Emocional, não comercial.</div>
+        </div>
+
+        <div class="hook" data-number="2">
+          <div class="hook-title">Lo que el geriatra no te dijo</div>
+          <div class="hook-subtitle">Gancho de curiosidade + frustração</div>
+          <div class="hook-line">"Lo que ningún geriatra me dijo sobre cuidar a mi padre con demencia."</div>
+          <p class="hook-vo">"Tres geriatras. Cuatro mil pesos en consultas. Y nadie me dijo lo más simple: cómo PASAR el día con él. Hasta que encontré este sistema."</p>
+          <div class="hook-why"><strong>Por quê:</strong> ataca a frustração com o sistema médico (cuidador familiar SEMPRE passa por isso). Implícito: você não está sozinha.</div>
+        </div>
+
+        <div class="hook" data-number="3">
+          <div class="hook-title">No es tu culpa</div>
+          <div class="hook-subtitle">Modelado do ad #7 dele + alívio</div>
+          <div class="hook-line">"Si tu padre pasa 8 horas en el sofá, esto es para ti."</div>
+          <p class="hook-vo">"Sabes que debería moverse. Estimularse. Pero no sabes QUÉ hacer y todo lo que probaste no funcionó. No es tu culpa. Es que nadie te enseñó."</p>
+          <div class="hook-why"><strong>Por quê:</strong> pega o ângulo que ele já tocou (Jun 2) mas adiciona "no es tu culpa" — alívio emocional. Vai ressoar com toda filha que ouviu "tens que estimulá-lo" e não sabe COMO.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================ COPY AD ================ -->
+    <section id="copy-ad">
+      <h2>📝 Copy de anúncio principal (texto abaixo do vídeo)</h2>
+      <p class="lead">Mesma copy para os 3 hooks. Edite levemente o opening por país se desejar (ver variações).</p>
+
+      <div class="copy-block">
+        <button class="copy-btn" onclick="copyText(this, 'ad')">copiar</button>
+        <pre id="copy-ad" class="copy-text">🟣 Querida hija, querido hijo: esto es para ti.
+
+Si estás cuidando a tu padre o madre con Alzheimer, demencia o cualquier forma de deterioro cognitivo… y sientes que estás haciendo todo mal, no estás sola.
+
+El problema no es tu paciencia. El problema es que NADIE te enseñó cómo.
+
+Los geriatras dicen "estimúlelo".
+Los neurólogos dicen "manténgalo activo".
+Pero nunca te dijeron QUÉ HACER el martes a las 4 de la tarde cuando papá está agitado y no quiere comer.
+
+Por eso creamos este sistema:
+
+✅ +80 actividades adaptadas por estadio (leve, moderado, avanzado).
+   Porque lo que funcionaba el mes pasado, hoy ya no.
+
+✅ Protocolo de 15 minutos / 3 veces al día. Sin formación médica.
+   Sin materiales raros. Con cosas que ya tienes en casa.
+
+✅ Reduce las crisis de la tarde (sundowning) y mejora el sueño nocturno.
+   Tu padre duerme mejor. TÚ duermes mejor.
+
+🎁 Bonos exclusivos del Sistema Completo:
+🎁 Guía: "Cómo hablar con tu padre cuando ya no te reconoce."
+🎁 Cartilla de Sundowning: qué hacer cuando se agita por la tarde.
+🎁 Señales de alerta: distinguir una crisis de la enfermedad.
+🎁 Plan semanal imprimible (4 estadios × 7 días).
+🎁 Audios MP3 para sesiones de calma.
+
+🔒 Garantía de 30 días. Si en un mes no consigues UN solo momento de conexión con él, te devolvemos el 100%. Sin trámites.
+
+👇 Empieza esta misma noche, antes de que él se acueste 👇</pre>
+      </div>
+
+      <h3>Variações por país (ajustes finos)</h3>
+      <table>
+        <thead><tr><th>País</th><th>Ajuste</th></tr></thead>
+        <tbody>
+          <tr><td>Argentina</td><td>Trocar "padre/madre" por <strong>"papá/mamá"</strong>, usar <strong>"vos"</strong> no voiceover</td></tr>
+          <tr><td>México</td><td>"papá/mamá" + manter "tú", incluir referência a <strong>"tarde de cafecito"</strong> como ritual</td></tr>
+          <tr><td>Espanha</td><td>"padre" (mais natural ES), trocar geriatra por <strong>"neurólogo"</strong></td></tr>
+          <tr><td>Brasil (PT)</td><td>Tradução completa + persona <strong>"filha cuidando da mãe com Alzheimer"</strong> — mercado gigante, ROI no Hotmart altíssimo</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ================ VOZ ================ -->
+    <section id="voz">
+      <h2>🎙️ Scripts de voz — ElevenLabs</h2>
+      <p class="lead">Copie cada bloco e cole no ElevenLabs. Não troque a pontuação ao colar — o ritmo emocional depende dela.</p>
+
+      <div class="card">
+        <strong>Config recomendada</strong>
+        <ul style="margin-top: 8px;">
+          <li><strong>Model:</strong> Eleven Multilingual v2</li>
+          <li><strong>Voice:</strong> feminina, 40-55 anos, tom maternal/cálido. Sugestões: <em>Valentina</em> (LATAM), <em>Sofia</em> (Spain), <em>Mia</em> (calma)</li>
+          <li><strong>Stability:</strong> 45-55 · <strong>Similarity:</strong> 75 · <strong>Style:</strong> 30-40 · <strong>Speaker Boost:</strong> ON</li>
+        </ul>
+      </div>
+
+      <h4>Hook 1 — La confesión (≈12s)</h4>
+      <div class="copy-block">
+        <button class="copy-btn" onclick="copyText(this, 'vo1')">copiar</button>
+        <pre id="copy-vo1" class="copy-text">El día que mi madre dejó de reconocerme... lloré toda la noche. Al día siguiente, no fui al psicólogo. No fui al médico. Hice esto.</pre>
+      </div>
+
+      <h4>Hook 2 — Lo que el geriatra no te dijo (≈14s)</h4>
+      <div class="copy-block">
+        <button class="copy-btn" onclick="copyText(this, 'vo2')">copiar</button>
+        <pre id="copy-vo2" class="copy-text">Tres geriatras. Cuatro mil pesos en consultas. Y nadie me dijo lo más simple: cómo pasar el día con él. Hasta que encontré este sistema.</pre>
+      </div>
+
+      <h4>Hook 3 — No es tu culpa (≈18s)</h4>
+      <div class="copy-block">
+        <button class="copy-btn" onclick="copyText(this, 'vo3')">copiar</button>
+        <pre id="copy-vo3" class="copy-text">Sabes que debería moverse. Estimularse. Pero no sabes qué hacer... y todo lo que probaste no funcionó. No es tu culpa. Es que nadie te enseñó.</pre>
+      </div>
+
+      <h4>VO Longa — Depoimento (≈90s, para mid-funnel)</h4>
+      <div class="copy-block">
+        <button class="copy-btn" onclick="copyText(this, 'volonga')">copiar</button>
+        <pre id="copy-volonga" class="copy-text">Hace dos años, mi mamá empezó a olvidar nombres. Después, olvidó dónde estaban las llaves. Después, olvidó quién era yo.
+
+Los médicos me dijeron lo mismo que te dijeron a ti: que la mantuviera activa, que la estimulara, que tuviera paciencia. Pero ninguno me explicó cómo. Cómo pasar un martes a las cuatro de la tarde con una mamá que se agita y no entiende lo que le digo.
+
+Encontré este sistema casi por casualidad. Y lo que cambió no fue ella... fui yo. Aprendí a hablarle sin corregirla. Aprendí qué actividad usar cuando estaba inquieta. Aprendí que quince minutos al día, bien hechos, valen más que tres horas de televisión.
+
+No te voy a prometer que tu mamá vuelva a ser la de antes. Eso no se puede. Pero te puedo prometer que vas a tener más momentos buenos en el día. Una sonrisa. Una mano que aprieta la tuya. Una mirada que dice "te conozco, aunque no recuerde tu nombre".
+
+Eso ya es mucho. Eso, lo vale todo.</pre>
+      </div>
+
+      <h4>VO do ad principal — versão 30s</h4>
+      <div class="copy-block">
+        <button class="copy-btn" onclick="copyText(this, 'vo30')">copiar</button>
+        <pre id="copy-vo30" class="copy-text">Si estás cuidando a tu padre o madre con Alzheimer o demencia... y sentís que estás haciendo todo mal, no estás sola. El problema no es tu paciencia. Es que nadie te enseñó cómo. Por eso creamos un sistema con más de ochenta actividades adaptadas, en quince minutos al día. Sin formación médica. Sin materiales raros. Empezá esta misma noche.</pre>
+      </div>
+    </section>
+
+    <!-- ================ 10 COPIES ================ -->
+    <section id="copys">
+      <h2>📋 10 roteiros completos — cola direto no ElevenLabs</h2>
+      <p class="lead">10 roteiros de vídeo de <strong>20-40s</strong> cada. Estrutura igual à do concorrente: hook → dor → nome do produto + o que faz → bullets do que vem dentro → bônus → garantia → CTA. Cola no ElevenLabs e tens o áudio do anúncio inteiro.</p>
+
+      <h3>🎯 Referência — copies do concorrente</h3>
+      <p class="muted" style="margin-bottom: 16px;">As 2 copies que ele está rodando nos 32 ads ativos. Modele a estrutura, não o conteúdo.</p>
+
+      <h4>Concorrente · Copy #1 — usada em 25 de 32 ads <span class="tag gray">profissional</span></h4>
+      <div class="copy-block" style="border-left-color: var(--ink-400);">
+        <button class="copy-btn" onclick="copyText(this, 'cc1')">copiar</button>
+<pre id="copy-cc1" class="copy-text">¿Sigues perdiendo horas buscando ejercicios en internet?
+
+Colega, tu tiempo vale oro. Deja de improvisar y ten a mano la herramienta definitiva para tus sesiones de gerontogimnasia.
+
+Descarga ahora la Guía con +100 Actividades y Ejercicios para Adultos Mayores.
+
+Listo para aplicar: imprime y usa al instante.
+Adaptable: ejercicios sentados, de pie y cognitivos.
+Variedad: dinámicas de equilibrio, fuerza y memoria.
+
+OFERTA PREMIUM: llévate la guía principal más cuatro bonos exclusivos, incluyendo Prevención de Caídas y Guía Antiestrés, por un precio ridículo.
+
+Descarga inmediata aquí.</pre>
+      </div>
+
+      <h4>Concorrente · Copy #2 — warhorse Feb 6 <span class="tag gray">urgência + bônus</span></h4>
+      <div class="copy-block" style="border-left-color: var(--ink-400);">
+        <button class="copy-btn" onclick="copyText(this, 'cc2')">copiar</button>
+<pre id="copy-cc2" class="copy-text">¡Atención! Últimas horas de esta Promoción Especial.
+
+¿Por qué conformarte con una lista de ejercicios cuando puedes tener el sistema completo?
+
+Obtén la Guía de más de cien Actividades y desbloquea gratis estos cuatro regalos:
+
+Bono uno: Guía Antiestrés y Relajación.
+Bono dos: Clases de Equilibrio y Prevención de Caídas.
+Bono tres: Guía de Estiramientos Diarios.
+Bono cuatro: Rutinas para Casa.
+
+Todo esto por menos de lo que cuesta un almuerzo.
+
+Garantía de siete días. Si no te gusta, te devolvemos tu dinero.
+
+Hace clic abajo.</pre>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>💜 Nossas 10 variações</h3>
+
+      <h4>#1 — La confesión <span class="tag">≈32s</span></h4>
+      <div class="copy-block">
+        <button class="copy-btn" onclick="copyText(this, 'c1')">copiar</button>
+<pre id="copy-c1" class="copy-text">El día que mi madre dejó de reconocerme, lloré toda la noche. Y al día siguiente encontré esto: el Sistema para Hijos Cuidadores. Más de ochenta actividades adaptadas por estadio para acompañar a tu padre o madre con Alzheimer o demencia. Quince minutos al día. Sin formación médica. Hoy, además, te llevas gratis la Guía "Cómo hablarle cuando ya no te reconoce". Treinta días de garantía. Hace clic abajo y empezá esta misma noche.</pre>
+      </div>
+
+      <h4>#2 — Lo que el geriatra no te dijo <span class="tag">≈35s</span></h4>
+      <div class="copy-block">
+        <button class="copy-btn" onclick="copyText(this, 'c2')">copiar</button>
+<pre id="copy-c2" class="copy-text">Tres geriatras. Cuatro mil pesos en consultas. Y nadie me dijo cómo pasar el día con mi padre con demencia. Por eso existe el Sistema para Hijos Cuidadores: más de ochenta actividades organizadas por estadio, en sesiones de quince minutos, listas para imprimir. Sin formación médica. Sin equipo especial. Hoy se incluye la Cartilla de Sundowning, el Plan Semanal y los Audios de Calma. Treinta días de garantía total. Empezá hoy mismo.</pre>
+      </div>
+
+      <h4>#3 — No es tu culpa <span class="tag">≈30s</span></h4>
+      <div class="copy-block">
+        <button class="copy-btn" onclick="copyText(this, 'c3')">copiar</button>
+<pre id="copy-c3" class="copy-text">Si tu padre pasa ocho horas en el sofá... no es tu culpa. Es que nadie te enseñó cómo estimularlo. El Sistema para Hijos Cuidadores te muestra exactamente qué hacer: más de ochenta actividades por estadio de la demencia, en bloques de quince minutos, con materiales que ya tenés en casa. Incluye la guía "Cómo hablarle cuando ya no te reconoce" y la Cartilla de Sundowning. Treinta días de garantía. Hace clic abajo.</pre>
+      </div>
+
+      <h4>#4 — El error de corregir <span class="tag">≈38s</span></h4>
+      <div class="copy-block">
+        <button class="copy-btn" onclick="copyText(this, 'c4')">copiar</button>
+<pre id="copy-c4" class="copy-text">El error que cometemos casi todos los hijos cuidadores es corregir. Cuando él confunde tu nombre, lo corregimos. Y cada vez se va un poco más lejos. Yo dejé de corregir gracias al Sistema para Hijos Cuidadores: más de ochenta actividades por estadio, protocolos de quince minutos, y la guía "Cómo hablarle cuando ya no te reconoce". Sin formación médica. Con cosas de tu casa. Treinta días de garantía. Si no notás cambios, te devolvemos todo. Empezá esta tarde.</pre>
+      </div>
+
+      <h4>#5 — El día más difícil <span class="tag">≈37s</span></h4>
+      <div class="copy-block">
+        <button class="copy-btn" onclick="copyText(this, 'c5')">copiar</button>
+<pre id="copy-c5" class="copy-text">El día más difícil no es el diagnóstico. Es seis meses después, cuando la familia volvió a su vida y vos quedaste sola con él. Para ese día existe el Sistema para Hijos Cuidadores: más de ochenta actividades organizadas por estadio, quince minutos tres veces al día, listas para imprimir. Incluye Cartilla de Sundowning, Señales de Alerta y Plan Semanal. Treinta días de garantía. Si no encontrás un solo momento de conexión, te devolvemos todo. Hace clic abajo.</pre>
+      </div>
+
+      <h4>#6 — Tu mamá sigue ahí <span class="tag">≈33s</span></h4>
+      <div class="copy-block">
+        <button class="copy-btn" onclick="copyText(this, 'c6')">copiar</button>
+<pre id="copy-c6" class="copy-text">Tu mamá sigue ahí. Aunque te llame por otro nombre. Y hay quince minutos al día en los que podés traerla de vuelta. El Sistema para Hijos Cuidadores te muestra cuáles: más de ochenta actividades por estadio, con fotos viejas, música y objetos que ya tenés. Sin formación médica. Incluye gratis la guía "Cómo hablarle cuando ya no te reconoce". Treinta días de garantía. Hace clic abajo y empezá esta tarde.</pre>
+      </div>
+
+      <h4>#7 — Sundowning (la crisis de las 4) <span class="tag">≈38s</span></h4>
+      <div class="copy-block">
+        <button class="copy-btn" onclick="copyText(this, 'c7')">copiar</button>
+<pre id="copy-c7" class="copy-text">Si tu padre se agita entre las cuatro y las seis de la tarde, tiene un nombre: se llama sundowning. Y hay una rutina de quince minutos antes que lo evita. Está incluida en el Sistema para Hijos Cuidadores: más de ochenta actividades por estadio, la Cartilla específica de Sundowning, los Audios MP3 de calma y el Plan Semanal Imprimible. Sin formación médica. Treinta días de garantía. Si la crisis sigue igual, te devolvemos todo. Hace clic abajo.</pre>
+      </div>
+
+      <h4>#8 — Vivo lejos, mi hermana lo cuida <span class="tag">≈37s</span></h4>
+      <div class="copy-block">
+        <button class="copy-btn" onclick="copyText(this, 'c8')">copiar</button>
+<pre id="copy-c8" class="copy-text">Vivo a ochocientos kilómetros de mi padre. Mi hermana lo cuida y yo me sentía inútil... hasta que le mandé el Sistema para Hijos Cuidadores. Más de ochenta actividades organizadas por estadio, quince minutos tres veces al día, listas para imprimir. Sin formación médica. Sin equipo especial. Ahora ella tiene un plan y papá tiene momentos buenos cada día. Treinta días de garantía. El mejor regalo que le podés mandar a quien cuida.</pre>
+      </div>
+
+      <h4>#9 — Querida hija (carta directa) <span class="tag">≈40s</span></h4>
+      <div class="copy-block">
+        <button class="copy-btn" onclick="copyText(this, 'c9')">copiar</button>
+<pre id="copy-c9" class="copy-text">Querida hija. Si estás cuidando a tu padre o madre con Alzheimer o demencia y sentís que estás haciendo todo mal, esto es para vos. El Sistema para Hijos Cuidadores: más de ochenta actividades por estadio, quince minutos tres veces al día, sin formación médica. Hoy incluye gratis: Guía "Cómo hablarle cuando ya no te reconoce", Cartilla de Sundowning, Señales de Alerta, Plan Semanal Imprimible y Audios de Calma. Treinta días de garantía total. Hace clic y empezá esta noche.</pre>
+      </div>
+
+      <h4>#10 — Quince minutos cambian el día <span class="tag">≈36s</span></h4>
+      <div class="copy-block">
+        <button class="copy-btn" onclick="copyText(this, 'c10')">copiar</button>
+<pre id="copy-c10" class="copy-text">Quince minutos. No necesitás más para que tu padre con demencia duerma mejor, se agite menos por la tarde y vuelva a mirarte. El Sistema para Hijos Cuidadores te muestra cuáles son esos quince minutos: más de ochenta actividades organizadas por estadio, listas para imprimir, con cosas de tu casa. Sin formación médica. Más de mil doscientos hijos en Latinoamérica ya lo están usando. Treinta días de garantía. Hace clic abajo y empezá esta tarde.</pre>
+      </div>
+
+    </section>
+
+    <!-- ================ ROTEIROS DO CONCORRENTE ================ -->
+    <section id="roteiros-concorrente">
+      <h2>🎯 Roteiros do concorrente (transcrição real)</h2>
+      <p class="lead">Os <strong>7 vídeos baixados</strong> da Ads Library, com áudio transcrito por Whisper + visual do poster. Use como referência de ESTRUTURA — não de conteúdo (esse não é o seu nicho).</p>
+
+      <!-- Concorrente #1 -->
+      <div class="script-header"><h4>Conc · #1 Warhorse <span class="tag gray">Feb 6 · 4s · só CTA</span></h4></div>
+      <div class="script">
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">1</span>0:00 – 0:04</div>
+          <div class="script-content">
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Idosos em centro día / asilo em roda fazendo gincana com cilindros de espuma. Lanternas decorativas no teto. <a href="ads-library/creatives/01-930241332995064-poster.jpg" target="_blank">ver poster</a></div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">+100 ejercicios para adultos mayores · Material certificado para estimular memoria y equilibrio</em> (overlay roxo) + <em class="legenda-txt">HAZ CLIC</em> (amarelo)</div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Haz clic en saber más y transforma también la vida de tus seres queridos."</em></div>
+          </div>
+        </div>
+      </div>
+      <p class="muted" style="margin-top: -16px; margin-bottom: 24px;">⚡ <strong>Insight:</strong> 4 segundos só com CTA + visual forte. Funciona porque o copy do post no Facebook faz todo o trabalho de venda. Ad de retargeting/awareness, não conversion-first.</p>
+
+      <!-- Concorrente #2 -->
+      <div class="script-header"><h4>Conc · #2 Inatividad é el enemigo silencioso <span class="tag gray">May 29 · 39s · longão estruturado</span></h4></div>
+      <div class="script">
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">1</span>0:00 – 0:05</div>
+          <div class="script-content">
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Cartilhas de exercícios espalhadas no chão (LUMBALGIA CRÔNICA + CERVICALGIA). Mockup do produto físico. <a href="ads-library/creatives/02-2066835260843561-poster.jpg" target="_blank">ver poster</a></div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">No necesitas gimnasio costoso</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"No necesitas un gimnasio costoso, solo necesitas una silla y esta guía."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">2</span>0:05 – 0:12</div>
+          <div class="script-content">
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Idoso(a) apático no sofá olhando TV. Ângulo emocional.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">LA INACTIVIDAD ES EL ENEMIGO</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"La inactividad es el enemigo silencioso de nuestros mayores. ¿Te duele ver a tu mamá o papá sin motivación, sentado todo el día frente al televisor?"</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">3</span>0:12 – 0:20</div>
+          <div class="script-content">
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Guia digital sendo mostrada — folheando páginas com exercícios.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">SOLO NECESITAS la guía correcta</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"No necesitas equipos costosos ni ser un experto para cambiar eso, solo necesitas la guía correcta. Con nuestra guía digital podrás devolverles la sonrisa y la autonomía."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">4</span>0:20 – 0:27</div>
+          <div class="script-content">
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Idoso(a) sorridente fazendo exercício sentado na sala de casa. Família por perto.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">15 MINUTOS AL DÍA</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Aplicar ejercicios sencillos y seguros en la sala de tu casa. Fortalecer su cuerpo y mente en solo 15 minutos al día."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">5</span>0:27 – 0:36</div>
+          <div class="script-content">
+            <div class="script-row"><span class="script-label visual">VISUAL</span>4 mockups de bônus aparecendo em cascata.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">🎁 ACCESO DE POR VIDA + 4 BONOS</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Aprovecha hoy acceso de por vida más cuatro bonos de regalo: guía de relajación, prevención de caídas, ejercicios en casa, guía de estiramientos."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">6</span>0:36 – 0:39</div>
+          <div class="script-content">
+            <div class="script-row"><span class="script-label visual">VISUAL</span>End card produto + CTA.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">MÁS INFORMACIÓN →</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Haz clic en Más Información y regala la calidad de vida hoy mismo."</em></div>
+          </div>
+        </div>
+      </div>
+      <p class="muted" style="margin-top: -16px; margin-bottom: 24px;">⚡ <strong>Insight:</strong> esta é a estrutura DR clássica que ele mais usa. Hook de dor → frame "no necesitas X, solo Y" → benefício específico (15 min) → bônus → CTA. Copiável 1:1 trocando o conteúdo pro nosso nicho.</p>
+
+      <!-- Concorrente #3 -->
+      <div class="script-header"><h4>Conc · #3 UGC creator no carro <span class="tag gray">May 29 · 29s · testemunho profissional</span></h4></div>
+      <div class="script">
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">1</span>0:00 – 0:06</div>
+          <div class="script-content">
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Cara jovem (terapeuta?) dentro do carro segurando livro físico do produto. <a href="ads-library/creatives/03-1369922432009461-poster.jpg" target="_blank">ver poster</a></div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">¿Por qué nadie habla de esta guía?</em> (verde fluo)</div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Yo no creía en esto hasta que lo probé. Pasaba horas buscando en Google y YouTube actividades para mis pacientes."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">2</span>0:06 – 0:13</div>
+          <div class="script-content">
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Continua talking head, abre o livro mostrando páginas. Inserts de busca no Google/YouTube.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">SIEMPRE LO MISMO. AGOTADO DE IMPROVISAR.</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Y al final, siempre terminábamos haciendo lo mismo. Estaba agotado de improvisar."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">3</span>0:13 – 0:22</div>
+          <div class="script-content">
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Folheando o livro mostrando atividades sentadas / em pé / cognitivas.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">+100 actividades · LISTAS para imprimir</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Probé la guía de más de 100 actividades y mi rutina cambió en un día. Son ejercicios listos para imprimir y aplicar. Incluso hay actividades sentadas para quienes no pueden caminar."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">4</span>0:22 – 0:29</div>
+          <div class="script-content">
+            <div class="script-row"><span class="script-label visual">VISUAL</span>End card + texto "ahorra 10 horas".</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">+10h ahorradas por semana</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Haz clic en el enlace de abajo para descargar tu guía ahora y ahorra al menos 10 horas de planificación semanal."</em></div>
+          </div>
+        </div>
+      </div>
+      <p class="muted" style="margin-top: -16px; margin-bottom: 24px;">⚡ <strong>Insight:</strong> formato testemunho profissional do tipo UGC. Persona profissional reconhecendo a própria dor ("estaba agotado de improvisar"). Modela bem pra nicho profissional, mas pra cuidador familiar precisa de ângulo emocional.</p>
+
+      <!-- Concorrente #4 -->
+      <div class="script-header"><h4>Conc · #4 Testemunho mãe + filha <span class="tag gray">May 29 · 17s · curto + emoção</span></h4></div>
+      <div class="script">
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">1</span>0:00 – 0:06</div>
+          <div class="script-content">
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Idosa em cadeira de rodas + filha jovem fazendo atividade com pratos coloridos em garagem/estacionamento. <a href="ads-library/creatives/04-2352410748852620-poster.jpg" target="_blank">ver poster</a></div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">+100 ejercicios para adultos mayores · Material certificado para estimular memoria y equilibrio</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Antes mi mamá pasaba horas sentadas sin ganas de nada, ahora espera con ilusión las actividades de cada día."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">2</span>0:06 – 0:13</div>
+          <div class="script-content">
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Mãe sorrindo enquanto mexe os braços. Inserts da guia impressa.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">+100 ejercicios adaptados · CERTIFICADO</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Con este material certificado y más de 100 ejercicios adaptados, recuperó movimientos, confianza y alegría."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">3</span>0:13 – 0:17</div>
+          <div class="script-content">
+            <div class="script-row"><span class="script-label visual">VISUAL</span>End card.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">SABER MÁS →</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Haz clic en saber más y transforma también la vida de tus seres queridos."</em></div>
+          </div>
+        </div>
+      </div>
+      <p class="muted" style="margin-top: -16px; margin-bottom: 24px;">⚡ <strong>Insight:</strong> formato antes×depois ultra-curto. Esse ad já flerta com cuidador familiar (filha falando da mãe), mas a oferta dele continua genérica. <strong>Boa estrutura pra modelar nossa</strong>: 6s antes / 7s depois / 4s CTA.</p>
+
+      <!-- Concorrente #5 -->
+      <div class="script-header"><h4>Conc · #5 Prova social familias <span class="tag gray">May 29 · 13s · social proof</span></h4></div>
+      <div class="script">
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">1</span>0:00 – 0:08</div>
+          <div class="script-content">
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Idosa em ginásio fazendo bastão em grupo + cartilhas sobrepostas. <a href="ads-library/creatives/05-828790796658385-poster.jpg" target="_blank">ver poster</a></div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">Actividades listas y certificadas</em> + <em class="legenda-txt">MILES de familias</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Miles de familias de Latinoamérica ya están usando estas más de 100 actividades para mantener a sus adultos mayores más activos, seguros y felices."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">2</span>0:08 – 0:13</div>
+          <div class="script-content">
+            <div class="script-row"><span class="script-label visual">VISUAL</span>End card + grupo de pessoas sorrindo.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">ÚNETE HOY →</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Con este material certificado también podrás transformar la vida de quienes más amás. Haz clic en saber más y únete hoy."</em></div>
+          </div>
+        </div>
+      </div>
+      <p class="muted" style="margin-top: -16px; margin-bottom: 24px;">⚡ <strong>Insight:</strong> prova social + CTA. 13s pura conversion. Funciona pra retargeting de quem já viu outro vídeo dele.</p>
+
+      <!-- Concorrente #6 -->
+      <div class="script-header"><h4>Conc · #6 Hoy puede ser el inicio <span class="tag gray">Jun 1 · 14s · urgência</span></h4></div>
+      <div class="script">
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">1</span>0:00 – 0:09</div>
+          <div class="script-content">
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Idosas em centro día brincando com bola sobre tecido (gincana). <a href="ads-library/creatives/06-1298211625288653-poster.jpg" target="_blank">ver poster</a></div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">+100 Ejercicios probados que mejoran la vida diaria</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Hoy puede ser el inicio de un cambio real para tus padres o abuelos. Más de 100 actividades listas para aplicar, probadas y adaptadas a cada necesidad."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">2</span>0:09 – 0:14</div>
+          <div class="script-content">
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Banner vermelho urgência + end card.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">⏰ ÚLTIMO DÍA · precio especial</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Último día con precio especial. ¡Haz clic en saber más y asegura tu acceso inmediato!"</em></div>
+          </div>
+        </div>
+      </div>
+      <p class="muted" style="margin-top: -16px; margin-bottom: 24px;">⚡ <strong>Insight:</strong> hook esperançoso + urgência falsa ("último día" todo dia). Estrutura pra impulso final.</p>
+
+      <!-- Concorrente #7 -->
+      <div class="script-header"><h4>Conc · #7 El sofá podría estar molestando <span class="tag yellow">Jun 2 · 34s · NOVO ÂNGULO emocional</span></h4></div>
+      <div class="script">
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">1</span>0:00 – 0:05</div>
+          <div class="script-content">
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Idosa deitada apática no sofá com pose passiva. Luz fria. <a href="ads-library/creatives/07-1953231018637216-poster.jpg" target="_blank">ver poster</a></div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">El sofá podría estar molestando a tu mayor.</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"La inactividad es el enemigo silencioso. No dejes que el sofá apague la salud de tus mayores."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">2</span>0:05 – 0:13</div>
+          <div class="script-content">
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Folheando guia + close de exercícios sentados em casa.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">NO necesitas equipos · NO necesitas ser experto</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"No necesitas equipos caros ni ser un experto. Con nuestra guía certificada tienes el plan exacto para fortalecer su cuerpo y mente desde la comodidad de tu salón."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">3</span>0:13 – 0:22</div>
+          <div class="script-content">
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Idoso(a) sorrindo fazendo exercício sentado. Filha por perto.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">SONRISA · FUERZA · AUTONOMÍA</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Son ejercicios adaptados, seguros y diseñados para generar resultados visibles. Verás cómo recuperan su sonrisa, su fuerza y sobre todo su autonomía."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">4</span>0:22 – 0:30</div>
+          <div class="script-content">
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Mockup do paquete premium + 4 bônus.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">PAQUETE PREMIUM · ACCESO DE POR VIDA + 4 BONOS</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Regala la calidad de vida hoy mismo. Haz clic en el botón y asegura el paquete premium. Llevas la guía completa con acceso de por vida más cuatro bonos exclusivos de equilibrio, estiramientos y relajación."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">5</span>0:30 – 0:34</div>
+          <div class="script-content">
+            <div class="script-row"><span class="script-label visual">VISUAL</span>End card "HAZLO POR ELLOS" em destaque.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">Hazlo por ellos · Comienza ahora</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Hazlo por ellos. Comienza ahora."</em></div>
+          </div>
+        </div>
+      </div>
+      <p class="muted" style="margin-top: -16px; margin-bottom: 24px;">⚡ <strong>Insight:</strong> Este é o ad mais novo dele e o ÚNICO que ataca cuidador familiar com culpa explícita ("hazlo por ellos"). Confirma a tese de que ele está sentindo o gap e tentando atacar — mas ainda no preço entry-level ($5.90). <strong>Nosso ângulo Alzheimer + $19 + bônus emocional dispara à frente disso.</strong></p>
+
+      <div class="card" style="margin-top: 32px; background: linear-gradient(135deg, #faf5ff, white); border-color: var(--brand);">
+        <strong>🎯 Síntese para roubar a estrutura dele:</strong>
+        <ol style="margin-top: 8px;">
+          <li><strong>Ele alterna 3 formatos:</strong> longão estruturado (39s) / mini-depoimento (13-17s) / só CTA (4s).</li>
+          <li><strong>Frame mais usado:</strong> "no necesitas X costoso, solo necesitas Y" — pode reaplicar no nosso ("no necesitas un geriatra cada semana, solo necesitas un plan").</li>
+          <li><strong>Promessa nominal:</strong> "15 minutos al día" — copiável 1:1 (já está nas nossas).</li>
+          <li><strong>Bônus padrão:</strong> 4 bônus listados verbalmente no VO. <strong>Modele esse padrão.</strong></li>
+          <li><strong>CTA padrão:</strong> "Haz clic en saber más" — exato CTA do botão Meta. Copiável.</li>
+          <li><strong>O que ele NÃO faz:</strong> nomear o produto como sistema/método/protocolo. <strong>Você nomeia: "Sistema para Hijos Cuidadores".</strong></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ================ FRAMEWORK DELE ================ -->
+    <section id="framework">
+      <h2>🧩 Framework de copy do concorrente</h2>
+      <p class="lead">Analisei os 7 transcripts e extraí <strong>3 fórmulas estruturais</strong> que ele alterna nos 32 ads. Cada fórmula tem um esqueleto fixo de blocos funcionais (HOOK, AGITAR, SOLUÇÃO, MECANISMO, BÔNUS, CTA). É esse esqueleto que vamos adaptar pro nosso nicho.</p>
+
+      <!-- FORMATO A -->
+      <div class="framework-card">
+        <h4><span class="badge-fmt">FÓRMULA A</span> DR Longão (30–40s)</h4>
+        <p>Usada nos ads #2 e #7. É o formato mais elaborado dele — apresentação completa do produto. Bate em frio (cold traffic).</p>
+        <div class="formula">
+          <span class="formula-step hook">HOOK</span>
+          <span class="formula-arrow">→</span>
+          <span class="formula-step agitar">AGITAR DOR</span>
+          <span class="formula-arrow">→</span>
+          <span class="formula-step solucao">REFRAME + SOLUÇÃO</span>
+          <span class="formula-arrow">→</span>
+          <span class="formula-step transformacao">TRANSFORMAÇÃO</span>
+          <span class="formula-arrow">→</span>
+          <span class="formula-step mecanismo">MECANISMO</span>
+          <span class="formula-arrow">→</span>
+          <span class="formula-step bonus">BÔNUS</span>
+          <span class="formula-arrow">→</span>
+          <span class="formula-step cta">CTA EMOCIONAL</span>
+        </div>
+        <p><strong>Frases-tipo dele:</strong></p>
+        <ul>
+          <li><span class="script-label func hook">HOOK</span> "La inactividad es el enemigo silencioso."</li>
+          <li><span class="script-label func agitar">AGITAR</span> "¿Te duele ver a tu mamá sin motivación, sentada todo el día frente al televisor?"</li>
+          <li><span class="script-label func solucao">SOLUÇÃO</span> "No necesitas equipos costosos ni ser un experto, solo necesitas la guía correcta."</li>
+          <li><span class="script-label func transformacao">TRANSFORMAÇÃO</span> "Verás cómo recuperan su sonrisa, su fuerza y su autonomía."</li>
+          <li><span class="script-label func mecanismo">MECANISMO</span> "15 minutos al día / +100 actividades / listos para imprimir / material certificado."</li>
+          <li><span class="script-label func bonus">BÔNUS</span> "Aprovecha hoy acceso de por vida más 4 bonos de regalo: guía de relajación, prevención de caídas..."</li>
+          <li><span class="script-label func cta">CTA</span> "Hazlo por ellos. Comienza ahora." / "Regala la calidad de vida hoy mismo."</li>
+        </ul>
+      </div>
+
+      <!-- FORMATO B -->
+      <div class="framework-card">
+        <h4><span class="badge-fmt">FÓRMULA B</span> UGC Testemunho (15–30s)</h4>
+        <p>Usada nos ads #3 e #4. Voz na primeira pessoa, parece autêntico, descoberta pessoal. Bate bem em mid-funnel.</p>
+        <div class="formula">
+          <span class="formula-step hook">HOOK PESSOAL</span>
+          <span class="formula-arrow">→</span>
+          <span class="formula-step agitar">MINI-HISTÓRIA DE DOR</span>
+          <span class="formula-arrow">→</span>
+          <span class="formula-step descoberta">DESCOBERTA</span>
+          <span class="formula-arrow">→</span>
+          <span class="formula-step transformacao">TRANSFORMAÇÃO RÁPIDA</span>
+          <span class="formula-arrow">→</span>
+          <span class="formula-step mecanismo">MECANISMO</span>
+          <span class="formula-arrow">→</span>
+          <span class="formula-step cta">CTA PRÁTICO</span>
+        </div>
+        <p><strong>Frases-tipo dele:</strong></p>
+        <ul>
+          <li><span class="script-label func hook">HOOK</span> "Yo no creía en esto hasta que lo probé." / "Antes mi mamá pasaba horas sin ganas de nada..."</li>
+          <li><span class="script-label func agitar">DOR</span> "Pasaba horas buscando en Google. Estaba agotado de improvisar."</li>
+          <li><span class="script-label func descoberta">DESCOBERTA</span> "Probé la guía y mi rutina cambió en un día."</li>
+          <li><span class="script-label func transformacao">TRANSFORMAÇÃO</span> "...ahora espera con ilusión las actividades de cada día."</li>
+          <li><span class="script-label func mecanismo">MECANISMO</span> "+100 actividades / listos para imprimir / actividades sentadas..."</li>
+          <li><span class="script-label func cta">CTA</span> "Haz clic abajo y ahorra al menos 10 horas semanales."</li>
+        </ul>
+      </div>
+
+      <!-- FORMATO C -->
+      <div class="framework-card">
+        <h4><span class="badge-fmt">FÓRMULA C</span> Prova Social Ultra-curto (10–15s)</h4>
+        <p>Usada nos ads #5 e #6. Funciona pra retargeting (quem já viu outro vídeo dele).</p>
+        <div class="formula">
+          <span class="formula-step prova">PROVA SOCIAL</span>
+          <span class="formula-arrow">→</span>
+          <span class="formula-step mecanismo">AUTORIDADE + MECANISMO</span>
+          <span class="formula-arrow">→</span>
+          <span class="formula-step cta">CTA URGÊNCIA</span>
+        </div>
+        <p><strong>Frases-tipo dele:</strong></p>
+        <ul>
+          <li><span class="script-label func prova">PROVA</span> "Miles de familias en Latinoamérica ya están usando..."</li>
+          <li><span class="script-label func mecanismo">AUTORIDADE</span> "Material certificado, +100 actividades probadas y adaptadas."</li>
+          <li><span class="script-label func cta">CTA</span> "Último día con precio especial. ¡Haz clic y asegura tu acceso!"</li>
+        </ul>
+      </div>
+
+      <div class="card" style="background: linear-gradient(135deg, #faf5ff, white); border-color: var(--brand);">
+        <strong>🎯 Como nós vamos usar isso:</strong>
+        <p style="margin-top: 8px;">Os <strong>10 roteiros nossos abaixo</strong> usam EXATAMENTE essas 3 fórmulas — 4× Fórmula A (DR longão), 4× Fórmula B (UGC testemunho), 2× Fórmula C (prova social). Cada bloco está marcado com a função (<span class="script-label func hook">HOOK</span>, <span class="script-label func agitar">AGITAR</span>, etc) pra você ver onde estamos copiando a estrutura dele. <strong>O conteúdo é nosso (Alzheimer/cuidador), o esqueleto é dele (já validado em 50 ads).</strong></p>
+      </div>
+    </section>
+
+    <!-- ================ ROTEIROS DE VÍDEO ================ -->
+    <section id="roteiros">
+      <h2>🎬 10 roteiros nossos (usando o framework dele)</h2>
+      <p class="lead">Cada roteiro é o vídeo inteiro destrinchado por bloco: <span class="script-label visual">VISUAL</span> que aparece na tela, <span class="script-label legenda">LEGENDA</span> sobreposta, <span class="script-label vo">VO</span> falado, e <span class="script-label func cta">FUNÇÃO</span> dentro da fórmula. Use direto no CapCut — cada bloco = um clipe.</p>
+
+      <!-- =============== ROTEIRO 1 — FÓRMULA A =============== -->
+      <div class="script-header"><h4>Roteiro #1 — El sofá del Alzheimer <span class="tag brand">FÓRMULA A · DR Longão · 38s</span></h4></div>
+      <div class="formula">
+        <span class="formula-step hook">HOOK</span><span class="formula-arrow">→</span>
+        <span class="formula-step agitar">AGITAR</span><span class="formula-arrow">→</span>
+        <span class="formula-step solucao">SOLUÇÃO</span><span class="formula-arrow">→</span>
+        <span class="formula-step transformacao">TRANSFORMAÇÃO</span><span class="formula-arrow">→</span>
+        <span class="formula-step mecanismo">MECANISMO</span><span class="formula-arrow">→</span>
+        <span class="formula-step bonus">BÔNUS</span><span class="formula-arrow">→</span>
+        <span class="formula-step cta">CTA</span>
+      </div>
+      <div class="script">
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">1</span>0:00 – 0:05</div>
+          <div class="script-content">
+            <span class="script-label func hook">HOOK</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Idosa(o) apática(o) deitada no sofá. Luz fria de tarde. Sem movimento.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">El Alzheimer es el enemigo silencioso.</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"El Alzheimer es el enemigo silencioso. Y la inactividad es su mejor aliada."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">2</span>0:05 – 0:11</div>
+          <div class="script-content">
+            <span class="script-label func agitar">AGITAR DOR</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Filha (50+) sentada do lado olhando preocupada.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">¿Te duele ver a tu mamá apagarse cada día?</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"¿Te duele ver a tu mamá apagarse un poco más cada día y no saber qué hacer?"</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">3</span>0:11 – 0:18</div>
+          <div class="script-content">
+            <span class="script-label func solucao">REFRAME + SOLUÇÃO</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Caderno impresso do produto sobre a mesa. Luz quente. Tilt-down.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">No necesitas un geriatra cada semana, solo necesitas el plan correcto.</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"No necesitas un geriatra cada semana ni ser un experto en demencia. Solo necesitas el plan correcto."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">4</span>0:18 – 0:24</div>
+          <div class="script-content">
+            <span class="script-label func transformacao">TRANSFORMAÇÃO</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Mãe e filha sorrindo, fazendo atividade juntas com fotos antigas.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">Verás cómo vuelve la sonrisa, la mirada, la conexión.</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Con este sistema verás cómo vuelve la sonrisa, la mirada, la conexión que pensabas perdida."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">5</span>0:24 – 0:30</div>
+          <div class="script-content">
+            <span class="script-label func mecanismo">MECANISMO</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Folheando guia — vendo páginas separadas por estádio.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">+80 actividades · 15 minutos al día · sin formación médica</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Más de ochenta actividades adaptadas por estadio. Quince minutos al día. Sin formación médica. Con cosas que ya tenés en casa."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">6</span>0:30 – 0:36</div>
+          <div class="script-content">
+            <span class="script-label func bonus">BÔNUS</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>4 mockups dos bônus aparecendo em cascata.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">🎁 ACCESO DE POR VIDA + 4 BONOS</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Aprovecha hoy acceso de por vida más cuatro bonos: Guía Cómo Hablarle, Cartilla de Sundowning, Plan Semanal y Audios de Calma."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">7</span>0:36 – 0:38</div>
+          <div class="script-content">
+            <span class="script-label func cta">CTA</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>End card "HAZLO POR ELLA".</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">Hazlo por ella · MÁS INFORMACIÓN →</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Hazlo por ella. Comienza esta noche."</em></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =============== ROTEIRO 2 — FÓRMULA A =============== -->
+      <div class="script-header"><h4>Roteiro #2 — Sundowning enemigo silencioso <span class="tag brand">FÓRMULA A · DR Longão · 36s</span></h4></div>
+      <div class="formula">
+        <span class="formula-step hook">HOOK</span><span class="formula-arrow">→</span>
+        <span class="formula-step agitar">AGITAR</span><span class="formula-arrow">→</span>
+        <span class="formula-step solucao">SOLUÇÃO</span><span class="formula-arrow">→</span>
+        <span class="formula-step transformacao">TRANSFORMAÇÃO</span><span class="formula-arrow">→</span>
+        <span class="formula-step mecanismo">MECANISMO</span><span class="formula-arrow">→</span>
+        <span class="formula-step bonus">BÔNUS</span><span class="formula-arrow">→</span>
+        <span class="formula-step cta">CTA</span>
+      </div>
+      <div class="script">
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">1</span>0:00 – 0:05</div>
+          <div class="script-content">
+            <span class="script-label func hook">HOOK</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Relógio na parede marcando 16:30. Som ambiente da casa abafado.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">La crisis de las 4 tiene nombre: sundowning.</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"La crisis de las cuatro de la tarde tiene nombre: se llama sundowning. Y le pasa a 7 de cada 10 personas con demencia."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">2</span>0:05 – 0:11</div>
+          <div class="script-content">
+            <span class="script-label func agitar">AGITAR DOR</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Idoso(a) agitado andando sem destino pela sala, filha tentando acalmar.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">¿Te agotan esas dos horas todos los días?</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"¿Te agotan esas dos horas todos los días? ¿Sentís que perdés a tu papá justo cuando más necesitás conectar con él?"</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">3</span>0:11 – 0:17</div>
+          <div class="script-content">
+            <span class="script-label func solucao">REFRAME + SOLUÇÃO</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Filha consultando caderno impresso, escolhendo atividade.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">No necesitas medicamentos, solo necesitas una rutina.</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"No necesitas medicamentos ni ser una experta. Solo necesitas una rutina de quince minutos hecha antes de las cuatro."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">4</span>0:17 – 0:22</div>
+          <div class="script-content">
+            <span class="script-label func transformacao">TRANSFORMAÇÃO</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Pai calmo na poltrona, filha relaxada do lado tomando chá.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">Tu papá calmo. Vos respirando.</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Tu papá llega calmado a la noche. Y vos volvés a respirar."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">5</span>0:22 – 0:28</div>
+          <div class="script-content">
+            <span class="script-label func mecanismo">MECANISMO</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Caderno do produto + páginas com horários separados.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">+80 actividades · 15 min · por estadio · listas para imprimir</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Más de ochenta actividades por estadio, listas para imprimir, con la rutina exacta para frenar la crisis de la tarde."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">6</span>0:28 – 0:34</div>
+          <div class="script-content">
+            <span class="script-label func bonus">BÔNUS</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>4 mockups bônus em cascata.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">🎁 4 BONOS de regalo</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Aprovecha hoy acceso de por vida más cuatro bonos: Cartilla específica de Sundowning, Audios de Calma, Plan Semanal y Guía Cómo Hablarle."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">7</span>0:34 – 0:36</div>
+          <div class="script-content">
+            <span class="script-label func cta">CTA</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>End card.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">Empezá esta tarde · MÁS INFORMACIÓN →</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"La crisis de mañana puede ser la última. Comienza ahora."</em></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =============== ROTEIRO 3 — FÓRMULA A =============== -->
+      <div class="script-header"><h4>Roteiro #3 — Demencia avanzada (acamado) <span class="tag brand">FÓRMULA A · DR Longão · 34s</span></h4></div>
+      <div class="formula">
+        <span class="formula-step hook">HOOK</span><span class="formula-arrow">→</span>
+        <span class="formula-step agitar">AGITAR</span><span class="formula-arrow">→</span>
+        <span class="formula-step solucao">SOLUÇÃO</span><span class="formula-arrow">→</span>
+        <span class="formula-step transformacao">TRANSFORMAÇÃO</span><span class="formula-arrow">→</span>
+        <span class="formula-step mecanismo">MECANISMO</span><span class="formula-arrow">→</span>
+        <span class="formula-step bonus">BÔNUS</span><span class="formula-arrow">→</span>
+        <span class="formula-step cta">CTA</span>
+      </div>
+      <div class="script">
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">1</span>0:00 – 0:05</div>
+          <div class="script-content">
+            <span class="script-label func hook">HOOK</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Idoso(a) na cama, olhar perdido. Filha ao lado segurando a mão.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">El médico dijo "ya no va a hablar". Se equivocó.</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"El médico me dijo que mi mamá ya no iba a hablar. Se equivocó."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">2</span>0:05 – 0:11</div>
+          <div class="script-content">
+            <span class="script-label func agitar">AGITAR DOR</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Close mão da filha tocando mão da mãe sem reação.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">¿Ya casi no responde? ¿Te sentís que perdiste el contacto?</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Si tu mamá ya casi no responde, si sentís que perdiste el contacto con ella, escuchá esto."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">3</span>0:11 – 0:17</div>
+          <div class="script-content">
+            <span class="script-label func solucao">REFRAME + SOLUÇÃO</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Folheando seção "estadio avanzado" do caderno.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">No necesitas que hable, solo necesitas el estímulo correcto.</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"No necesitas que ella te hable. Solo necesitas el estímulo correcto."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">4</span>0:17 – 0:23</div>
+          <div class="script-content">
+            <span class="script-label func transformacao">TRANSFORMAÇÃO</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Mãe apertando a mão da filha levemente, leve sorriso. Música familiar tocando.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">Una mano que aprieta. Una mirada. Está ahí.</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Una mano que aprieta la tuya. Una mirada. Va a volver. Va a estar ahí."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">5</span>0:23 – 0:28</div>
+          <div class="script-content">
+            <span class="script-label func mecanismo">MECANISMO</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Páginas com estímulos táteis, musicais, aromáticos.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">Sistema para Hijos Cuidadores · +80 actividades · estadio avanzado incluido</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"El Sistema para Hijos Cuidadores tiene más de ochenta actividades por estadio. Las del estadio avanzado no requieren palabras: solo música, tacto y aroma."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">6</span>0:28 – 0:32</div>
+          <div class="script-content">
+            <span class="script-label func bonus">BÔNUS</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Mockup do bônus de audios + guia.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">🎁 Audios de Calma + Guía Cómo Hablarle</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Incluye gratis los Audios de Calma y la Guía Cómo Hablarle cuando ya no te reconoce."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">7</span>0:32 – 0:34</div>
+          <div class="script-content">
+            <span class="script-label func cta">CTA</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>End card.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">Está ahí. Andala a buscar.</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Está ahí. Andala a buscar."</em></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =============== ROTEIRO 4 — FÓRMULA A =============== -->
+      <div class="script-header"><h4>Roteiro #4 — Querida hija (carta directa) <span class="tag brand">FÓRMULA A · DR Longão · 40s</span></h4></div>
+      <div class="formula">
+        <span class="formula-step hook">HOOK</span><span class="formula-arrow">→</span>
+        <span class="formula-step agitar">AGITAR</span><span class="formula-arrow">→</span>
+        <span class="formula-step solucao">SOLUÇÃO</span><span class="formula-arrow">→</span>
+        <span class="formula-step transformacao">TRANSFORMAÇÃO</span><span class="formula-arrow">→</span>
+        <span class="formula-step mecanismo">MECANISMO</span><span class="formula-arrow">→</span>
+        <span class="formula-step bonus">BÔNUS</span><span class="formula-arrow">→</span>
+        <span class="formula-step cta">CTA</span>
+      </div>
+      <div class="script">
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">1</span>0:00 – 0:04</div>
+          <div class="script-content">
+            <span class="script-label func hook">HOOK</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Carta escrita à mão, papel bege. Câmera estática close.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">Querida hija.</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Querida hija. Querido hijo. Esto es para vos."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">2</span>0:04 – 0:12</div>
+          <div class="script-content">
+            <span class="script-label func agitar">AGITAR DOR</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Filha cansada na cozinha, chá fumegante, olha pela janela.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">¿Sentís que estás haciendo todo mal?</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Si estás cuidando a tu padre con Alzheimer y sentís que estás haciendo todo mal... no estás sola."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">3</span>0:12 – 0:19</div>
+          <div class="script-content">
+            <span class="script-label func solucao">REFRAME + SOLUÇÃO</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Caderno do produto sendo entregue como presente.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">No necesitas más geriatras, solo necesitas un plan concreto.</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"No necesitas más geriatras ni más libros. Solo necesitas un plan concreto que te diga qué hacer."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">4</span>0:19 – 0:25</div>
+          <div class="script-content">
+            <span class="script-label func transformacao">TRANSFORMAÇÃO</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Mãe sorrindo, mão na cara da filha. Luz dourada.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">Volverás a tener momentos buenos en el día.</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Volverás a tener momentos buenos en el día. Y vas a dejar de sentirte sola."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">5</span>0:25 – 0:31</div>
+          <div class="script-content">
+            <span class="script-label func mecanismo">MECANISMO</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Folheando seções por estádio do caderno.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">+80 actividades · por estadio · 15 min · 3 veces al día</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Más de ochenta actividades por estadio, en bloques de quince minutos. Sin formación médica, con cosas de tu casa."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">6</span>0:31 – 0:37</div>
+          <div class="script-content">
+            <span class="script-label func bonus">BÔNUS</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>5 mockups bônus em cascata: Guía / Cartilla / Señales / Plan / Audios.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">🎁 ACCESO DE POR VIDA + 5 BONOS</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Aprovecha hoy acceso de por vida más cinco bonos: Cómo Hablarle, Cartilla de Sundowning, Señales de Alerta, Plan Semanal y Audios de Calma."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">7</span>0:37 – 0:40</div>
+          <div class="script-content">
+            <span class="script-label func cta">CTA</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>End card "HAZLO POR ELLOS".</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">Hazlo por ellos · MÁS INFORMACIÓN →</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Hazlo por ellos. Comienza esta noche."</em></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =============== ROTEIRO 5 — FÓRMULA B =============== -->
+      <div class="script-header"><h4>Roteiro #5 — La confesión <span class="tag brand">FÓRMULA B · UGC Testemunho · 26s</span></h4></div>
+      <div class="formula">
+        <span class="formula-step hook">HOOK PESSOAL</span><span class="formula-arrow">→</span>
+        <span class="formula-step agitar">DOR</span><span class="formula-arrow">→</span>
+        <span class="formula-step descoberta">DESCOBERTA</span><span class="formula-arrow">→</span>
+        <span class="formula-step transformacao">TRANSFORMAÇÃO</span><span class="formula-arrow">→</span>
+        <span class="formula-step mecanismo">MECANISMO</span><span class="formula-arrow">→</span>
+        <span class="formula-step cta">CTA PRÁTICO</span>
+      </div>
+      <div class="script">
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">1</span>0:00 – 0:04</div>
+          <div class="script-content">
+            <span class="script-label func hook">HOOK PESSOAL</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Close da filha (50+), luz natural, expressão honesta. Talking head selfie-style.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">El día que mi mamá dejó de reconocerme.</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"El día que mi mamá dejó de reconocerme, lloré toda la noche."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">2</span>0:04 – 0:10</div>
+          <div class="script-content">
+            <span class="script-label func agitar">DOR</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Insert: smartphone com várias abas abertas (Google, foros, YouTube).</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">Pasaba horas buscando qué hacer. Nada funcionaba.</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Pasaba horas buscando en Google qué hacer con ella. Y al final, siempre terminaba improvisando. Estaba agotada."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">3</span>0:10 – 0:15</div>
+          <div class="script-content">
+            <span class="script-label func descoberta">DESCOBERTA</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Mãos abrindo o caderno impresso do produto.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">Probé este sistema. Cambió en 3 días.</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Probé el Sistema para Hijos Cuidadores. Y todo cambió en tres días."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">4</span>0:15 – 0:20</div>
+          <div class="script-content">
+            <span class="script-label func transformacao">TRANSFORMAÇÃO</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Mãe sorrindo, segurando mão da filha.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">Mamá me apretó la mano. Volvió.</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Al tercer día, mi mamá me apretó la mano. Volvió. Aunque sea por unos minutos."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">5</span>0:20 – 0:24</div>
+          <div class="script-content">
+            <span class="script-label func mecanismo">MECANISMO</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Páginas do caderno + bônus aparecendo.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">+80 actividades · 15 min · listos para imprimir</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Son más de ochenta actividades por estadio, listas para imprimir. Quince minutos al día."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">6</span>0:24 – 0:26</div>
+          <div class="script-content">
+            <span class="script-label func cta">CTA</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>End card.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">Haz clic abajo · Empezá esta noche</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Hace clic abajo y empezá esta misma noche."</em></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =============== ROTEIRO 6 — FÓRMULA B =============== -->
+      <div class="script-header"><h4>Roteiro #6 — Yo no creía hasta que lo probé <span class="tag brand">FÓRMULA B · UGC Testemunho · 28s</span></h4></div>
+      <div class="formula">
+        <span class="formula-step hook">HOOK PESSOAL</span><span class="formula-arrow">→</span>
+        <span class="formula-step agitar">DOR</span><span class="formula-arrow">→</span>
+        <span class="formula-step descoberta">DESCOBERTA</span><span class="formula-arrow">→</span>
+        <span class="formula-step transformacao">TRANSFORMAÇÃO</span><span class="formula-arrow">→</span>
+        <span class="formula-step mecanismo">MECANISMO</span><span class="formula-arrow">→</span>
+        <span class="formula-step cta">CTA PRÁTICO</span>
+      </div>
+      <div class="script">
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">1</span>0:00 – 0:04</div>
+          <div class="script-content">
+            <span class="script-label func hook">HOOK PESSOAL</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Talking head filha, expressão de "vou te contar uma coisa". Carro ou casa.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">Yo no creía en esto. Hasta que probé.</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Yo no creía que esto fuera a funcionar con mi papá. Hasta que lo probé."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">2</span>0:04 – 0:11</div>
+          <div class="script-content">
+            <span class="script-label func agitar">DOR</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Pai sentado apático no sofá, TV ligada. Insert filha frustrada.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">8 horas en el sofá · sin reaccionar a nada</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Mi papá pasaba ocho horas al día en el sofá. Le hablaba y no me respondía. Pensé que ya lo había perdido."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">3</span>0:11 – 0:17</div>
+          <div class="script-content">
+            <span class="script-label func descoberta">DESCOBERTA</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Caderno do produto aberto na mesa. Folheando primeira atividade.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">Encontré el Sistema para Hijos Cuidadores</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Encontré el Sistema para Hijos Cuidadores. Probé una sola actividad. La de las fotos viejas."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">4</span>0:17 – 0:22</div>
+          <div class="script-content">
+            <span class="script-label func transformacao">TRANSFORMAÇÃO</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Pai com sorriso largo apontando para uma foto antiga. Filha emocionada.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">15 minutos después · me dijo mi nombre.</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Quince minutos después, papá me dijo mi nombre. Después de meses."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">5</span>0:22 – 0:26</div>
+          <div class="script-content">
+            <span class="script-label func mecanismo">MECANISMO</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Caderno + páginas com seções "estadio leve / moderado / avanzado".</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">+80 actividades por estadio · listas para imprimir</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Son más de ochenta actividades organizadas por estadio. Listas para imprimir y aplicar."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">6</span>0:26 – 0:28</div>
+          <div class="script-content">
+            <span class="script-label func cta">CTA</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>End card.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">Hace clic abajo · descargá hoy</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Hace clic abajo y descargá la guía hoy. Va a cambiar tu casa."</em></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =============== ROTEIRO 7 — FÓRMULA B =============== -->
+      <div class="script-header"><h4>Roteiro #7 — Antes mi papá... ahora <span class="tag brand">FÓRMULA B · UGC Testemunho · 22s</span></h4></div>
+      <div class="formula">
+        <span class="formula-step hook">HOOK PESSOAL</span><span class="formula-arrow">→</span>
+        <span class="formula-step transformacao">TRANSFORMAÇÃO</span><span class="formula-arrow">→</span>
+        <span class="formula-step mecanismo">MECANISMO</span><span class="formula-arrow">→</span>
+        <span class="formula-step cta">CTA PRÁTICO</span>
+      </div>
+      <div class="script">
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">1</span>0:00 – 0:07</div>
+          <div class="script-content">
+            <span class="script-label func hook">HOOK ANTES×DEPOIS</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Split-screen: lado esquerdo pai apático no sofá / lado direito pai sorrindo fazendo atividade.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">Antes: 8h en el sofá · Ahora: espera con ilusión las actividades</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Antes mi papá pasaba horas sentado sin ganas de nada. Ahora espera con ilusión las actividades de cada día."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">2</span>0:07 – 0:13</div>
+          <div class="script-content">
+            <span class="script-label func transformacao">TRANSFORMAÇÃO</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Pai sorrindo, mexendo as mãos numa atividade. Mãe ajudando.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">Recuperó la mirada · la sonrisa · la conexión</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Recuperó la mirada, la sonrisa y la conexión con la familia."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">3</span>0:13 – 0:19</div>
+          <div class="script-content">
+            <span class="script-label func mecanismo">MECANISMO</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Caderno do produto + páginas.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">Sistema para Hijos Cuidadores · +80 actividades adaptadas</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Con el Sistema para Hijos Cuidadores y más de ochenta actividades adaptadas por estadio."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">4</span>0:19 – 0:22</div>
+          <div class="script-content">
+            <span class="script-label func cta">CTA</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>End card.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">Saber más →</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Haz clic en saber más y transformá también la vida de tu papá."</em></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =============== ROTEIRO 8 — FÓRMULA B =============== -->
+      <div class="script-header"><h4>Roteiro #8 — Vivo lejos, mi hermana lo cuida <span class="tag brand">FÓRMULA B · UGC Testemunho · 28s</span></h4></div>
+      <div class="formula">
+        <span class="formula-step hook">HOOK PESSOAL</span><span class="formula-arrow">→</span>
+        <span class="formula-step agitar">DOR</span><span class="formula-arrow">→</span>
+        <span class="formula-step descoberta">DESCOBERTA</span><span class="formula-arrow">→</span>
+        <span class="formula-step transformacao">TRANSFORMAÇÃO</span><span class="formula-arrow">→</span>
+        <span class="formula-step mecanismo">MECANISMO</span><span class="formula-arrow">→</span>
+        <span class="formula-step cta">CTA PRÁTICO</span>
+      </div>
+      <div class="script">
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">1</span>0:00 – 0:04</div>
+          <div class="script-content">
+            <span class="script-label func hook">HOOK PESSOAL</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Janela de avião sobre nuvens, ou mapa LATAM com pin pulsando.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">Vivo a 800 km de mi papá.</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Vivo a ochocientos kilómetros de mi papá. Mi hermana lo cuida."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">2</span>0:04 – 0:11</div>
+          <div class="script-content">
+            <span class="script-label func agitar">DOR</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Videochamada com pai distante, expressão preocupada da filha.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">La llamaba todos los días. Me sentía inútil.</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Yo la llamaba todos los días y siempre me sentía inútil. Inútil y culpable."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">3</span>0:11 – 0:17</div>
+          <div class="script-content">
+            <span class="script-label func descoberta">DESCOBERTA</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Caderno chegando por correio + irmã abrindo o pacote.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">Le mandé el Sistema. Todo cambió.</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Hasta que le mandé el Sistema para Hijos Cuidadores. Y todo cambió."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">4</span>0:17 – 0:22</div>
+          <div class="script-content">
+            <span class="script-label func transformacao">TRANSFORMAÇÃO</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Videochamada agora alegre, pai sorrindo na tela.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">Ella tiene un plan. Yo tengo paz.</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Ahora ella tiene un plan. Yo tengo paz. Y papá vuelve a mirarme cada semana."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">5</span>0:22 – 0:26</div>
+          <div class="script-content">
+            <span class="script-label func mecanismo">MECANISMO</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Páginas do caderno.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">+80 actividades · 15 min · listas para imprimir</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Más de ochenta actividades por estadio, listas para imprimir."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">6</span>0:26 – 0:28</div>
+          <div class="script-content">
+            <span class="script-label func cta">CTA</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>End card "el mejor regalo para quien cuida".</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">El mejor regalo para quien cuida</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"El mejor regalo que le podés mandar a quien cuida. Haz clic abajo."</em></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =============== ROTEIRO 9 — FÓRMULA C =============== -->
+      <div class="script-header"><h4>Roteiro #9 — Miles de hijos cuidadores <span class="tag brand">FÓRMULA C · Prova Social · 12s</span></h4></div>
+      <div class="formula">
+        <span class="formula-step prova">PROVA SOCIAL</span><span class="formula-arrow">→</span>
+        <span class="formula-step mecanismo">AUTORIDADE</span><span class="formula-arrow">→</span>
+        <span class="formula-step cta">CTA URGÊNCIA</span>
+      </div>
+      <div class="script">
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">1</span>0:00 – 0:07</div>
+          <div class="script-content">
+            <span class="script-label func prova">PROVA SOCIAL</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Mapa LATAM com contador "+1.200" subindo. Frames de famílias sorrindo em montagem rápida.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">+1.200 hijos cuidadores en Latinoamérica ya lo usan</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Más de mil doscientos hijos cuidadores en Latinoamérica ya están usando este sistema para acompañar a su padre con Alzheimer o demencia."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">2</span>0:07 – 0:10</div>
+          <div class="script-content">
+            <span class="script-label func mecanismo">AUTORIDADE</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Caderno do produto + selo "+80 actividades".</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">+80 actividades · adaptadas por estadio</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Más de ochenta actividades adaptadas por estadio, listas para aplicar."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">3</span>0:10 – 0:12</div>
+          <div class="script-content">
+            <span class="script-label func cta">CTA URGÊNCIA</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>End card vermelho urgência.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">⏰ Último día con precio especial · únete hoy</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Último día con precio especial. Hace clic y unite hoy."</em></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =============== ROTEIRO 10 — FÓRMULA C =============== -->
+      <div class="script-header"><h4>Roteiro #10 — Hoy puede ser el inicio <span class="tag brand">FÓRMULA C · Prova Social · 14s</span></h4></div>
+      <div class="formula">
+        <span class="formula-step prova">PROVA SOCIAL</span><span class="formula-arrow">→</span>
+        <span class="formula-step mecanismo">AUTORIDADE</span><span class="formula-arrow">→</span>
+        <span class="formula-step cta">CTA URGÊNCIA</span>
+      </div>
+      <div class="script">
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">1</span>0:00 – 0:08</div>
+          <div class="script-content">
+            <span class="script-label func prova">PROVA SOCIAL</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Montagem rápida: pais sorrindo com hijos. 3-4 famílias diferentes.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">Hoy puede ser el inicio de un cambio real</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Hoy puede ser el inicio de un cambio real para tu mamá o tu papá con demencia."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">2</span>0:08 – 0:11</div>
+          <div class="script-content">
+            <span class="script-label func mecanismo">AUTORIDADE</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>Caderno + 4 bônus em mockup.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">+80 actividades · 5 bonos · 30 días de garantía</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Más de ochenta actividades por estadio, cinco bonos de regalo, treinta días de garantía."</em></div>
+          </div>
+        </div>
+        <div class="script-step">
+          <div class="script-time"><span class="step-num">3</span>0:11 – 0:14</div>
+          <div class="script-content">
+            <span class="script-label func cta">CTA URGÊNCIA</span>
+            <div class="script-row"><span class="script-label visual">VISUAL</span>End card vermelho.</div>
+            <div class="script-row"><span class="script-label legenda">LEGENDA</span><em class="legenda-txt">⏰ Último día · ASEGURÁ TU ACCESO</em></div>
+            <div class="script-row"><span class="script-label vo">VO</span><em class="vo-txt">"Último día con precio especial. Asegurá tu acceso inmediato."</em></div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ================ PRODUÇÃO ================ -->
+    <section id="producao">
+      <h2>🎥 Produção — pipeline IA + Stock</h2>
+      <p class="lead">Você NÃO vai gravar. Vai gerar com IA (Veo, Kling, Runway) + completar com stock (Pexels, Storyblocks). Veja o briefing shot-by-shot completo em <code>ads-alzheimer/BRIEFING-IA-STOCK.md</code>.</p>
+
+      <h3>Regra de ouro: IA × Stock</h3>
+      <table>
+        <thead><tr><th>Tipo de plano</th><th>Fonte</th><th>Por quê</th></tr></thead>
+        <tbody>
+          <tr><td>Ambiente atmosférico (sala vazia, janela, café frio)</td><td><span class="tag brand">IA</span></td><td>IA arrasa em ambientes parados, sem humanos</td></tr>
+          <tr><td>Close de objeto/mão segurando algo</td><td><span class="tag brand">IA ou Stock</span></td><td>Ambos funcionam bem</td></tr>
+          <tr><td>Rosto pensativo sem falar</td><td><span class="tag brand">IA (Kling)</span></td><td>Sem lip-sync = IA entrega</td></tr>
+          <tr><td>Mãe + filha juntas interagindo</td><td><span class="tag">Stock</span></td><td>IA ainda erra interação entre 2 humanos</td></tr>
+          <tr><td>End card com produto</td><td><span class="tag">Figma/Canva</span></td><td>Frame estático pixel-perfect</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Stack recomendado</h3>
+      <table>
+        <thead><tr><th>Função</th><th>Tool</th><th>Custo</th></tr></thead>
+        <tbody>
+          <tr><td>Vídeo IA (rostos)</td><td><strong>Kling 2.0</strong></td><td>US$ 10/mês</td></tr>
+          <tr><td>Vídeo IA (ambientes)</td><td>Google Veo 3.1</td><td>~$0.50/clipe</td></tr>
+          <tr><td>Stock</td><td><strong>Pexels</strong> (grátis), Storyblocks ($30/mês)</td><td>—</td></tr>
+          <tr><td>Mockup imagem</td><td>Midjourney</td><td>US$ 10/mês</td></tr>
+          <tr><td>Voz</td><td><strong>ElevenLabs</strong></td><td>US$ 5-22/mês</td></tr>
+          <tr><td>Edição</td><td>CapCut Pro (mobile/desktop)</td><td>US$ 8/mês</td></tr>
+          <tr><td>Música</td><td>Pixabay Music / Uppbeat</td><td>grátis</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Música por hook</h3>
+      <ul>
+        <li><strong>Hook 1</strong> — Piano solo melódico, 60-70 BPM, tom menor. Busca: <code>sad slow piano emotional reflective</code></li>
+        <li><strong>Hook 2</strong> — Piano + violino sutil, 75-85 BPM, drama building. Busca: <code>thoughtful piano violin reflective</code></li>
+        <li><strong>Hook 3</strong> — Piano ambient com reverb. <strong>PAUSA TOTAL</strong> da música 0.5s antes de "No es tu culpa". Busca: <code>ambient piano warm forgiveness gentle</code></li>
+      </ul>
+
+      <h3>Tempo estimado por anúncio</h3>
+      <p>3-5h (iniciante em IA video) · 1.5-2h (fluente). Pipeline completo: VO → 6-8 clipes IA/stock → mockup → end card → edit → legenda auto → mix → export 1080×1920 H.264 30fps.</p>
+
+      <p><a href="ads-alzheimer/BRIEFING-IA-STOCK.md" class="btn">📄 Abrir briefing shot-by-shot completo</a></p>
+    </section>
+
+    <!-- ================ CAMPANHA ================ -->
+    <section id="campanha">
+      <h2>📣 Setup de campanha (Meta Ads)</h2>
+      <p class="lead">Estrutura inicial pra rodar 3 hooks em paralelo. CPA target US$ 7-8 (AOV blended ~US$ 15).</p>
+
+      <table>
+        <thead><tr><th>Item</th><th>Valor sugerido</th></tr></thead>
+        <tbody>
+          <tr><td>Objetivo</td><td>Sales (ou Leads → Sales)</td></tr>
+          <tr><td>Otimização</td><td>Purchase event no pixel (vinculado a Hotmart)</td></tr>
+          <tr><td>Geo</td><td>LATAM (AR, MX, CL, CO, PE, EC, UY, PY) + ES. <strong>Comece por MX + AR + ES</strong></td></tr>
+          <tr><td>Idade</td><td><strong>49–68</strong> (sweet spot FB orgânico LATAM)</td></tr>
+          <tr><td>Gênero</td><td>Mulher 70% / Homem 30%</td></tr>
+          <tr><td>Interesses</td><td><strong>Advantage+ audience</strong> primeiro. Se for manual: Alzheimer's Association, Dementia, Adultos mayores, Cuidador familiar</td></tr>
+          <tr><td>Placements</td><td>Reels + Feed (deixa Meta decidir)</td></tr>
+          <tr><td>Budget inicial</td><td>US$ 30/dia × 3 ad sets = <strong>US$ 90/dia</strong></td></tr>
+          <tr><td>Critério winner</td><td>CPA &lt; 50% do AOV → target US$ 7-8</td></tr>
+        </tbody>
+      </table>
+
+      <h3>O que NÃO falar (Meta rejeita ou destrói confiança)</h3>
+      <ul>
+        <li>❌ "Cura del Alzheimer" / "Reverte la demencia" — Meta rejeita</li>
+        <li>❌ "100% garantizado que funciona"</li>
+        <li>❌ Mostrar idoso em estado terminal/dor explícita — Meta restringe</li>
+        <li>❌ "Es fácil!" — minimiza a dor</li>
+        <li>❌ Emojis 😭 🤒 — quebra o tom respeitoso</li>
+      </ul>
+    </section>
+
+    <!-- ================ LANDINGS ================ -->
+    <section id="landings">
+      <h2>🌐 Preview das landings</h2>
+      <p class="lead">A original clonada (para referência) + a nova landing reposicionada (Alzheimer / cuidador). Clique pra abrir cada uma em nova aba.</p>
+
+      <div class="landing-grid">
+        <div class="landing-card">
+          <div class="preview">
+            <div class="label">Original clonada</div>
+            <img src="snapshots/step-01-desktop-full.png" alt="Preview original">
+          </div>
+          <div class="body">
+            <h4>+100 Actividades y Ejercicios para Adultos Mayores</h4>
+            <div class="meta">site/index.html · espanhol · $5.90/$8.90</div>
+            <p>Clone fiel da landing do concorrente. Pixels e tracking removidos. Imagens locais.</p>
+            <div class="actions">
+              <a href="https://actividadesadultosmayores.com/" rel="noopener" class="btn" target="_blank">Abrir landing →</a>
+              <a href="snapshots/step-01-desktop-full.png" class="btn btn-ghost" target="_blank">Screenshot</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="landing-card">
+          <div class="preview" style="background: linear-gradient(135deg, #f3e8ff, #faf5ff);">
+            <div class="label" style="background: var(--brand);">Nossa oferta</div>
+            <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 24px; text-align: center;">
+              <div>
+                <div style="font-size: 14px; color: var(--brand-dark); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px;">Hijos cuidadores</div>
+                <div style="font-size: 22px; font-weight: 800; color: var(--ink-900); line-height: 1.2;">El día que mi madre dejó de reconocerme...</div>
+                <div style="font-size: 36px; font-weight: 800; color: var(--brand); margin-top: 12px;">$19</div>
+              </div>
+            </div>
+          </div>
+          <div class="body">
+            <h4>Sistema para Hijos Cuidadores de Alzheimer</h4>
+            <div class="meta">site-alzheimer/index.html · espanhol · $9/$19</div>
+            <p>Landing reposicionada para a persona "filha cuidadora". Roxo emocional, FAQ adaptado, bônus killer, garantia 30 dias.</p>
+            <div class="actions">
+              <a href="../index.html" class="btn" target="_blank">Abrir landing →</a>
+              <a href="ads-alzheimer/HEADLINES-E-COPIES.md" class="btn btn-ghost" target="_blank">Headlines completas</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================ ARQUIVOS ================ -->
+    <section id="arquivos">
+      <h2>📂 Todos os arquivos gerados</h2>
+      <p class="lead">Tudo o que você vê neste dashboard está em arquivos crus na pasta do projeto. Clique para abrir cada um.</p>
+
+      <h3>Análise competitiva</h3>
+      <div class="files">
+        <a class="file" href="ads-library/ANALISE-COMPETITIVA.md" target="_blank">
+          <span class="icon">📊</span>
+          <div><div class="name">ANALISE-COMPETITIVA.md</div><div class="desc">Relatório completo: ads, gaps, recomendações</div></div>
+        </a>
+        <a class="file" href="ads-library/ads-detail.json" target="_blank">
+          <span class="icon">📋</span>
+          <div><div class="name">ads-detail.json</div><div class="desc">Dados crus dos 32 ads (ID, copy, data, duração)</div></div>
+        </a>
+        <a class="file" href="ads-library/creatives/" target="_blank">
+          <span class="icon">🎞️</span>
+          <div><div class="name">creatives/</div><div class="desc">7 vídeos .mp4 + 7 posters .jpg baixados</div></div>
+        </a>
+      </div>
+
+      <h3>Reposicionamento Alzheimer</h3>
+      <div class="files">
+        <a class="file" href="ads-alzheimer/HEADLINES-E-COPIES.md" target="_blank">
+          <span class="icon">📝</span>
+          <div><div class="name">HEADLINES-E-COPIES.md</div><div class="desc">3 hooks + copy de anúncio + setup campanha</div></div>
+        </a>
+        <a class="file" href="ads-alzheimer/VOZ-ELEVENLABS.txt" target="_blank">
+          <span class="icon">🎙️</span>
+          <div><div class="name">VOZ-ELEVENLABS.txt</div><div class="desc">VOs prontos pra colar no ElevenLabs</div></div>
+        </a>
+        <a class="file" href="ads-alzheimer/BRIEFING-IA-STOCK.md" target="_blank">
+          <span class="icon">🎥</span>
+          <div><div class="name">BRIEFING-IA-STOCK.md</div><div class="desc">Shot-by-shot com prompts IA + search terms stock</div></div>
+        </a>
+        <a class="file" href="ads-alzheimer/BRIEFING-PRODUCAO.md" target="_blank">
+          <span class="icon">📋</span>
+          <div><div class="name">BRIEFING-PRODUCAO.md</div><div class="desc">Versão pra gravação real (deprecated, mantido por referência)</div></div>
+        </a>
+      </div>
+
+      <h3>Landings (HTML rodando)</h3>
+      <div class="files">
+        <a class="file" href="https://actividadesadultosmayores.com/" rel="noopener" target="_blank">
+          <span class="icon">🌐</span>
+          <div><div class="name">site/index.html</div><div class="desc">Clone do concorrente (original)</div></div>
+        </a>
+        <a class="file" href="../index.html" target="_blank">
+          <span class="icon">💜</span>
+          <div><div class="name">site-alzheimer/index.html</div><div class="desc">Nossa oferta — landing nova</div></div>
+        </a>
+      </div>
+
+      <h3>Reports do clone original</h3>
+      <div class="files">
+        <a class="file" href="reports/pages-map.md" target="_blank">
+          <span class="icon">🗺️</span>
+          <div><div class="name">pages-map.md</div><div class="desc">Fluxo da landing original</div></div>
+        </a>
+        <a class="file" href="reports/style-guide.md" target="_blank">
+          <span class="icon">🎨</span>
+          <div><div class="name">style-guide.md</div><div class="desc">30+ tokens de cor, tipografia, spacing</div></div>
+        </a>
+        <a class="file" href="reports/components.md" target="_blank">
+          <span class="icon">🧩</span>
+          <div><div class="name">components.md</div><div class="desc">14 componentes detalhados</div></div>
+        </a>
+        <a class="file" href="reports/animations.md" target="_blank">
+          <span class="icon">✨</span>
+          <div><div class="name">animations.md</div><div class="desc">Keyframes + comportamentos JS</div></div>
+        </a>
+        <a class="file" href="reports/content.md" target="_blank">
+          <span class="icon">💬</span>
+          <div><div class="name">content.md</div><div class="desc">Todo o copy em espanhol</div></div>
+        </a>
+        <a class="file" href="reports/tracking.md" target="_blank">
+          <span class="icon">📡</span>
+          <div><div class="name">tracking.md</div><div class="desc">Pixels + geo-pricing + lista 20 notifications</div></div>
+        </a>
+        <a class="file" href="reports/tech-recommendations.md" target="_blank">
+          <span class="icon">⚙️</span>
+          <div><div class="name">tech-recommendations.md</div><div class="desc">Stack pra rebuild (Next + Tailwind)</div></div>
+        </a>
+        <a class="file" href="COMO-ABRIR.md" target="_blank">
+          <span class="icon">📖</span>
+          <div><div class="name">COMO-ABRIR.md</div><div class="desc">Instruções de visualização das landings</div></div>
+        </a>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+    <p class="muted" style="text-align:center;">Dashboard gerado · 2026-06-09 · projeto <code>actividadesadultosmayores.com clone</code></p>
+
+  </main>
+</div>
+
+<div id="toast" class="toast">Copiado!</div>
+
+<script>
+// Sidebar nav highlight on scroll
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav a');
+function updateActiveNav() {
+  let current = '';
+  sections.forEach(s => {
+    const top = s.getBoundingClientRect().top;
+    if (top < 100) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+}
+window.addEventListener('scroll', updateActiveNav, { passive: true });
+updateActiveNav();
+
+// Copy buttons
+function copyText(btn, id) {
+  const el = document.getElementById('copy-' + id);
+  if (!el) return;
+  const txt = el.innerText;
+  navigator.clipboard.writeText(txt).then(() => {
+    const toast = document.getElementById('toast');
+    toast.textContent = 'Copiado!';
+    toast.classList.add('show');
+    btn.textContent = '✓ copiado';
+    setTimeout(() => { btn.textContent = 'copiar'; toast.classList.remove('show'); }, 1600);
+  });
+}
+
+// Inject raw VO panel (texto cru pro ElevenLabs) after each script
+(function injectRawVO() {
+  const cleanVO = (raw) => {
+    let t = raw.trim();
+    // remove surrounding quotes (straight and curly)
+    t = t.replace(/^["“”'`]+|["“”'`]+$/g, '');
+    // collapse internal whitespace
+    t = t.replace(/\s+/g, ' ').trim();
+    return t;
+  };
+
+  document.querySelectorAll('.script').forEach((script, idx) => {
+    const voNodes = script.querySelectorAll('.vo-txt');
+    if (!voNodes.length) return;
+
+    const lines = Array.from(voNodes)
+      .map(n => cleanVO(n.textContent))
+      .filter(Boolean);
+
+    if (!lines.length) return;
+
+    const rawText = lines.join(' ');
+
+    const panel = document.createElement('div');
+    panel.className = 'raw-vo';
+    panel.innerHTML = `
+      <div class="raw-vo-header">
+        <span class="raw-vo-label">🎙️ Texto cru · cola no ElevenLabs</span>
+        <button class="raw-vo-copy" type="button">copiar</button>
+      </div>
+      <div class="raw-vo-text"></div>
+    `;
+    panel.querySelector('.raw-vo-text').textContent = rawText;
+
+    const btn = panel.querySelector('.raw-vo-copy');
+    btn.addEventListener('click', () => {
+      navigator.clipboard.writeText(rawText).then(() => {
+        const toast = document.getElementById('toast');
+        if (toast) {
+          toast.textContent = 'Texto copiado!';
+          toast.classList.add('show');
+          setTimeout(() => toast.classList.remove('show'), 1600);
+        }
+        btn.textContent = '✓ copiado';
+        setTimeout(() => { btn.textContent = 'copiar'; }, 1600);
+      });
+    });
+
+    script.insertAdjacentElement('afterend', panel);
+  });
+})();
+</script>
+
+</body>
+</html>

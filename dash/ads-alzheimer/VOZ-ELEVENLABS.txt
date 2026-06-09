@@ -1,0 +1,95 @@
+================================================================
+VOICEOVERS PRONTOS — COLAR DIRETO NO ELEVENLABS
+================================================================
+
+CONFIGURAÇÃO RECOMENDADA NO ELEVENLABS
+--------------------------------------
+- Model: Eleven Multilingual v2 (mejor pronúncia em espanhol)
+- Voice: feminina, 40-55 anos, tom maternal/cálido. Sugestões:
+    • "Valentina" (LATAM)
+    • "Sofia" (Spain, mais formal — pra mercado ES)
+    • "Mia" (calma, intimista)
+- Stability: 45-55  (deja un pouco de variação emocional)
+- Similarity: 75
+- Style exaggeration: 30-40 (sutil, sem overacting)
+- Speaker boost: ON
+
+IMPORTANTE: as pausas estão marcadas com "..." e vírgulas.
+Não troque pontuação ao colar — o ritmo emocional depende dela.
+
+
+================================================================
+HOOK 1 — "LA CONFESIÓN" (≈12 segundos)
+================================================================
+
+El día que mi madre dejó de reconocerme... lloré toda la noche. Al día siguiente, no fui al psicólogo. No fui al médico. Hice esto.
+
+
+================================================================
+HOOK 2 — "LO QUE EL GERIATRA NO TE DIJO" (≈14 segundos)
+================================================================
+
+Tres geriatras. Cuatro mil pesos en consultas. Y nadie me dijo lo más simple: cómo pasar el día con él. Hasta que encontré este sistema.
+
+
+================================================================
+HOOK 3 — "NO ES TU CULPA" (≈18 segundos)
+================================================================
+
+Sabés que debería moverse. Estimularse. Pero no sabés qué hacer... y todo lo que probaste no funcionó. No es tu culpa. Es que nadie te enseñó.
+
+[VARIANTE NEUTRA — sem voseo argentino]:
+Sabes que debería moverse. Estimularse. Pero no sabes qué hacer... y todo lo que probaste no funcionó. No es tu culpa. Es que nadie te enseñó.
+
+
+================================================================
+VO LARGA — DEPOIMENTO COMPLETO (≈90 segundos · usar como mid-funnel)
+================================================================
+
+Hace dos años, mi mamá empezó a olvidar nombres. Después, olvidó dónde estaban las llaves. Después, olvidó quién era yo.
+
+Los médicos me dijeron lo mismo que te dijeron a ti: que la mantuviera activa, que la estimulara, que tuviera paciencia. Pero ninguno me explicó cómo. Cómo pasar un martes a las cuatro de la tarde con una mamá que se agita y no entiende lo que le digo.
+
+Encontré este sistema casi por casualidad. Y lo que cambió no fue ella... fui yo. Aprendí a hablarle sin corregirla. Aprendí qué actividad usar cuando estaba inquieta. Aprendí que quince minutos al día, bien hechos, valen más que tres horas de televisión.
+
+No te voy a prometer que tu mamá vuelva a ser la de antes. Eso no se puede. Pero te puedo prometer que vas a tener más momentos buenos en el día. Una sonrisa. Una mano que aprieta la tuya. Una mirada que dice "te conozco, aunque no recuerde tu nombre".
+
+Eso ya es mucho. Eso, lo vale todo.
+
+
+================================================================
+VO PARA O AD PRINCIPAL — VERSÃO 30s
+================================================================
+
+Si estás cuidando a tu padre o madre con Alzheimer o demencia... y sentís que estás haciendo todo mal, no estás sola. El problema no es tu paciencia. Es que nadie te enseñó cómo. Por eso creamos un sistema con más de ochenta actividades adaptadas, en quince minutos al día. Sin formación médica. Sin materiales raros. Empezá esta misma noche.
+
+
+================================================================
+VO PARA O AD PRINCIPAL — VERSÃO 60s (mais completa)
+================================================================
+
+Querida hija, querido hijo: esto es para ti.
+
+Si estás cuidando a tu padre o madre con Alzheimer, demencia o cualquier forma de deterioro cognitivo... y sientes que estás haciendo todo mal, no estás sola.
+
+El problema no es tu paciencia. El problema es que nadie te enseñó cómo.
+
+Los geriatras dicen "estimúlelo". Los neurólogos dicen "manténgalo activo". Pero nunca te dijeron qué hacer el martes a las cuatro de la tarde, cuando papá está agitado y no quiere comer.
+
+Por eso creamos este sistema. Más de ochenta actividades adaptadas por estadio. Protocolo de quince minutos, tres veces al día. Sin formación médica. Con cosas que ya tienes en casa.
+
+Pruébalo durante treinta días con tu papá. Si no consigues un solo momento de conexión, te devolvemos el cien por ciento.
+
+Empieza hoy. Él todavía está ahí.
+
+
+================================================================
+DICAS DE EDIÇÃO NO VÍDEO
+================================================================
+
+- Os hooks devem ser ditos NOS PRIMEIROS 3 SEGUNDOS de imagem.
+- Deixe 0.4-0.6s de silêncio DEPOIS do hook antes do próximo plano.
+- Música de fundo: piano lento, volume -22dB (não pode competir com a voz).
+- Sugestão de music libraries gratuitas: Pixabay Music, Uppbeat, YouTube Audio Library — busque por "emotional piano sad slow".
+- Não use música épica/cinematográfica — quebra o tom de intimidade.
+- Termine TODO vídeo com 1 frame estático do produto + CTA "MÁS INFORMACIÓN" por 1.5s.
